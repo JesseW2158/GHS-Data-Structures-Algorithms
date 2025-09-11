@@ -1,32 +1,42 @@
 package Stacks.War;
 
 public class Card implements Comparable<Card> {
+    private static int max;
     private int value;
-    private char rank;
     private int suit;
 
     /**
      * No need for default constructor since {@link Deck#Deck()} builds the deck without using default constructor
      * @param value
-     * @param rank
+     * @param value
      * @param suit
      */
-    public Card(int value, char rank, int suit) {
+    public Card(int value, int suit) {
         this.value = value;
-        this.rank = rank;
         this.suit = suit;
     }
 
+    /**
+     * 
+     * 
+     * @return 
+     */
     @Override
     public int compareTo(Card card) {
-        // return this.rank == 
-    }
+        if(card.value == max && this.value == 1 || card.value < this.value) {
+            return 1;
+        }
 
-    
+        if(card.value > this.value) {
+            return -1;
+        }
+
+        return 0;        
+    }
 
     @Override
     public String toString() {
-        return "┌─────────────┐\n│ " + value + "           │\n│             │\n│             │\n│      " + Character.toString(suit == 0 ? 'S' : suit == 1 ? 'D' : suit == 2 ? 'H' : 'C') + "      │\n│             │\n│             │\n│           " + Character.toString(rank) + " │\n└─────────────┘";
+        return "┌─────────────┐\n│ " + (value == 1 ? "A" : value == 11 ?  "J" : value == 12 ? "Q" : value == 13 ? "K" : value) + "           │\n│             │\n│             │\n│     " + (suit == 0 ? "Spa" : suit == 1 ? "Dia" : suit == 2 ? "Hrt" : "Clb") + "     │\n│             │\n│             │\n│           " + (value == 1 ? "A" : value == 11 ?  "J" : value == 12 ? "Q" : value == 13 ? "K" : value) + " │\n└─────────────┘";
     }
 
     public int getValue() {
@@ -35,14 +45,6 @@ public class Card implements Comparable<Card> {
 
     public void setValue(int value) {
         this.value = value;
-    }
-
-    public char getRank() {
-        return rank;
-    }
-
-    public void setRank(char rank) {
-        this.rank = rank;
     }
 
     public int getSuit() {
