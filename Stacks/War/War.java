@@ -16,13 +16,14 @@ public class War {
         this.isOpen = isOpen;
 
         Stack<Card> deck = new Stack<Card>();
-
+        fillDeck(deck);
+        System.out.println(deck);
     }
     
     private void fillDeck(Stack<Card> deck) {
         for(int i = 0; i < max; i++) {
             for(int j = 0; j < 4; j++) {
-                deck.push(new Card(j, i))
+                deck.push(new Card(j, i));
             }
         }
     }
@@ -33,5 +34,17 @@ public class War {
      */
     private void shuffle() {
         
+    }
+
+    @Override
+    public String toString() {
+        String output = "";
+        output += "Player 1's Deck:\n";
+
+        for(int i = 0; i < player1Deck.size() - 1; i++) {
+            output += Integer.toString(card.getValue()) + Integer.toString(card.getSuit()) + " | ";
+        }
+
+        return String
     }
 }

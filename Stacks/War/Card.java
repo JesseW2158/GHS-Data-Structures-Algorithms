@@ -6,8 +6,7 @@ public class Card implements Comparable<Card> {
     private int suit;
 
     /**
-     * No need for default constructor since {@link Deck#Deck()} builds the deck without using default constructor
-     * @param value
+     * No need for default constructor since {@link War#War(int, boolean)} builds the deck without using default constructor
      * @param value
      * @param suit
      */
