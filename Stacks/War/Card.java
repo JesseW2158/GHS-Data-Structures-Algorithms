@@ -34,7 +34,7 @@ public class Card implements Comparable<Card> {
 
     @Override
     public String toString() {
-        return "\n┌─────────────┐\n│ " + (value == 1 ? "A" : value == 11 ?  "J" : value == 12 ? "Q" : value == 13 ? "K" : value) + "           │\n│             │\n│             │\n│             │\n│     " + (suit == 0 ? "Spa" : suit == 1 ? "Dia" : suit == 2 ? "Hrt" : "Clb") + "     │\n│             │\n│             │\n│             │\n│           " + (value == 1 ? "A" : value == 11 ?  "J" : value == 12 ? "Q" : value == 13 ? "K" : value) + " │\n└─────────────┘";
+        return "\n┌─────────────┐\n│ " + (value == 1 ? "A" : value == 10 ? "T" : value == 11 ?  "J" : value == 12 ? "Q" : value == 13 ? "K" : value) + "           │\n│             │\n│             │\n│             │\n│     " + (suit == 0 ? "Spa" : suit == 1 ? "Dia" : suit == 2 ? "Hrt" : "Clb") + "     │\n│             │\n│             │\n│             │\n│           " + (value == 1 ? "A" : value == 10 ? "T" : value == 11 ?  "J" : value == 12 ? "Q" : value == 13 ? "K" : value) + " │\n└─────────────┘";
     }
 
     public int getValue() {

@@ -2,12 +2,8 @@ package Stacks.War;
 
 import java.util.Scanner;
 
-// WHAT TO DO WHEN TIED?
-// WHAT TO DO WHEN ALL CARDS ARE THE SAME?
-// MINIMUM NUMBER OF CARDS?
-// HOW TO DISPLAY CARDS WHEN IN WAR?
-// DOES BATTLE HAVE TO BE A BOOLEAN?
-// WHAT DO I DO WHEN TIED IN WAR BUT ONE PLAYER'S DECK EMPTY
+// MY ACES ARE 1
+// FULL SCREEN TERMINAL OR ELSE TERMINAL MIGHT DISPLAY WEIRDLY
 
 public class Game {
     public static void main(String[] args) {
@@ -24,17 +20,30 @@ public class Game {
         System.out.println("Enter if you want game to automatically play (True/False): ");
         boolean auto = scanner.nextBoolean();
 
-        scanner.close();
-
         System.out.print("\033[H\033[2J");
         System.out.flush();
 
         War war = new War(max, isOpen, auto);
 
-        while(!war.getPlayer1Deck().empty() && !war.getPlayer2Deck().empty()) {
-            System.out.println(war);
+        boolean finished = false;
+        boolean lose = false;
 
+        while (!finished && !lose) {
             war.battle();
+
+            lose = (war.evaluate() == 1 ? );
         }
+
+        scanner.close();
+    }
+
+    public static String winner(War war) {
+
+    }
+
+    public static boolean playerFinished(Scanner scanner) {
+        System.out.println("Another game (True/False): ");
+
+        return scanner.nextBoolean();
     }
 }

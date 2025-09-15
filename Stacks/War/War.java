@@ -23,7 +23,7 @@ public class War {
      * @param isOpen if the cards are shown to the player
      */
     public War(int max, boolean isOpen, boolean auto) {
-        this.max = Math.min(max, 13);
+        this.max = Math.min(Math.max(2, max), 13);
         this.isOpen = isOpen;
         this.auto = auto;
 
@@ -61,14 +61,27 @@ public class War {
             emptyGameDeck(player1Deck);
         } else if(player1Card.compareTo(player2Card) < 0) {
             emptyGameDeck(player2Deck);
-        } else {
-            //check if either deck is empty
-
-            game.push(player1Deck.pop());
-            game.push(player2Deck.pop());
-
-            battle();
         }
+
+        game.push(player1Deck.pop());
+        game.push(player2Deck.pop());
+
+        battle();
+    }
+
+    /**
+     * Evaluates whether a winner has appeared
+     * 
+     * @return 1 if player 1 wins return -1 if player 2 wins return 0 if tied
+     */
+    public int evaluate() {
+        if(player1Deck.empty() && player2Deck.empty()) {
+            return 0;
+        } else if (player1Deck.empty()) {
+            return 1;
+        }
+
+        return -1;
     }
 
     private void emptyGameDeck(Stack<Card> winner) {
@@ -78,12 +91,13 @@ public class War {
     }
 
     private void displayBattle(Card player1Card, Card player2Card) {
-        System.out.println("Player 1: \n" + player1Card + "\n\n Player 2: \n" + player2Card);
+        System.out.println(toString());
+
+        System.out.println("Player 1:" + player1Card + "\n\n Player 2:" + player2Card);
         
         if(!auto) {
-            System.out.println("\n\nPress enter to continue...\n");
+            System.out.println("\nPress enter to continue...");
 
-            //Fix read in
             try {
                 System.in.read();
             } catch (IOException e) {
