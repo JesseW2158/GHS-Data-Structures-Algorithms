@@ -1,29 +1,123 @@
 package Stacks.War;
 
+import java.io.IOException;
 import java.util.Stack;
 
 public class War {
     private int max;
     private boolean isOpen;
+    private boolean auto;
 
     private Stack<Card> player1Deck;
     private Stack<Card> player1Refill;
+
     private Stack<Card> player2Deck;
     private Stack<Card> player2Refill;
 
-    public War(int max, boolean isOpen) {
-        this.max = max;
+    private Stack<Card> game;
+
+    /**
+     * Constructor
+     * 
+     * @param max    the max value of the cards
+     * @param isOpen if the cards are shown to the player
+     */
+    public War(int max, boolean isOpen, boolean auto) {
+        this.max = Math.min(max, 13);
         this.isOpen = isOpen;
+        this.auto = auto;
+
+        this.player1Deck = new Stack<Card>();
+        this.player2Deck = new Stack<Card>();
+
+        this.player1Refill = new Stack<Card>();
+        this.player2Refill = new Stack<Card>();
+
+        this.game = new Stack<Card>();
 
         Stack<Card> deck = new Stack<Card>();
         fillDeck(deck);
-        System.out.println(deck);
+        shuffle(deck);
+
+        for (int i = 0; i < max * 2; i++) {
+            player1Deck.push(deck.pop());
+            player2Deck.push(deck.pop());
+        }
     }
-    
+
+    /**
+     * Under the assumption that both player's decks are not empty
+     */
+    public void battle() {
+        Card player1Card = player1Deck.pop();
+        Card player2Card = player2Deck.pop();
+
+        game.push(player1Card);
+        game.push(player2Card);
+
+        displayBattle(player1Card, player2Card);
+
+        if(player1Card.compareTo(player2Card) > 0) {
+            emptyGameDeck(player1Deck);
+        } else if(player1Card.compareTo(player2Card) < 0) {
+            emptyGameDeck(player2Deck);
+        } else {
+            //check if either deck is empty
+
+            game.push(player1Deck.pop());
+            game.push(player2Deck.pop());
+
+            battle();
+        }
+    }
+
+    private void emptyGameDeck(Stack<Card> winner) {
+        while(!game.empty()) {
+            winner.push(game.pop());
+        }
+    }
+
+    private void displayBattle(Card player1Card, Card player2Card) {
+        System.out.println("Player 1: \n" + player1Card + "\n\n Player 2: \n" + player2Card);
+        
+        if(!auto) {
+            System.out.println("\n\nPress enter to continue...\n");
+
+            //Fix read in
+            try {
+                System.in.read();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        clearScreen();
+    }
+
+    /**
+     * Clears the terminal screen
+     */
+    private void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    /**
+     * Fills a deck with cards.
+     * 
+     * @param deck
+     * @return filled deck
+     */
     private void fillDeck(Stack<Card> deck) {
-        for(int i = 0; i < max; i++) {
-            for(int j = 0; j < 4; j++) {
-                deck.push(new Card(j, i));
+        for (int i = 1; i <= max; i++) {
+            for (int j = 0; j < 4; j++) {
+                deck.push(new Card(i, j));
             }
         }
     }
@@ -31,20 +125,115 @@ public class War {
     /**
      * Shuffles a stack using the Fisher-Yates algorithm.
      * This is the most efficient and unbiased method for stack shuffling.
+     * 
+     * @param deck
+     * @return shuffled deck
      */
-    private void shuffle() {
-        
+    private void shuffle(Stack<Card> deck) {
+        for (int i = deck.size() - 1; i > 0; i--) {
+            int j = (int) (Math.random() * (i + 1));
+
+            Card temp = deck.get(i);
+
+            deck.set(i, deck.get(j));
+            deck.set(j, temp);
+        }
+    }
+
+    /**
+     * @return deck size of both players
+     */
+    private String score() {
+        return "Player 1 deck size: " + (player1Deck.size() + player1Refill.size()) +"\nPlayer 2 deck size: " + (player2Deck.size() + player2Refill.size());
     }
 
     @Override
     public String toString() {
-        String output = "";
-        output += "Player 1's Deck:\n";
+        String output = score() + "\n\n";
 
-        for(int i = 0; i < player1Deck.size() - 1; i++) {
-            output += Integer.toString(card.getValue()) + Integer.toString(card.getSuit()) + " | ";
+        if(isOpen) {
+            output += "Player 1's Deck:\n| ";
+
+            for (Card card : player1Deck) {
+                output += card.getValue() + "-" + card.getSuit() + " | ";
+            }
+
+            output += "\n\nPlayer 2's Deck:\n| ";
+
+            for (Card card : player2Deck) {
+                output += card.getValue() + "-" + card.getSuit() + " | ";
+            }
+
+            output += "\n";
+
+        } else {
+            output += "Player 1's Deck:\n| ";
+
+            output += player1Deck.peek().getValue() + "-" + player1Deck.peek().getSuit() + " | ";
+
+            for(int i = 1; i < player1Deck.size(); i++) {
+                output += "X | ";
+            }
+
+            output += "\n\nPlayer 2's Deck:\n| ";
+
+            output += player2Deck.peek().getValue() + "-" + player2Deck.peek().getSuit() + " | ";
+
+            for(int i = 1; i < player2Deck.size(); i++) {
+                output += "X | ";
+            }
+
+            output += "\n";
         }
 
-        return String
+        return output;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
+    }
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    public void setOpen(boolean isOpen) {
+        this.isOpen = isOpen;
+    }
+
+    public Stack<Card> getPlayer1Deck() {
+        return player1Deck;
+    }
+
+    public void setPlayer1Deck(Stack<Card> player1Deck) {
+        this.player1Deck = player1Deck;
+    }
+
+    public Stack<Card> getPlayer1Refill() {
+        return player1Refill;
+    }
+
+    public void setPlayer1Refill(Stack<Card> player1Refill) {
+        this.player1Refill = player1Refill;
+    }
+
+    public Stack<Card> getPlayer2Deck() {
+        return player2Deck;
+    }
+
+    public void setPlayer2Deck(Stack<Card> player2Deck) {
+        this.player2Deck = player2Deck;
+    }
+
+    public Stack<Card> getPlayer2Refill() {
+        return player2Refill;
+    }
+
+    public void setPlayer2Refill(Stack<Card> player2Refill) {
+        this.player2Refill = player2Refill;
     }
 }

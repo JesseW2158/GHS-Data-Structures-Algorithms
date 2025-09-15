@@ -16,9 +16,8 @@ public class Card implements Comparable<Card> {
     }
 
     /**
-     * 
-     * 
-     * @return 
+     * @param card
+     * @return 1 if the card is greater than the other card, -1 if the card is less than the other card, 0 if the cards are equal
      */
     @Override
     public int compareTo(Card card) {
@@ -35,7 +34,7 @@ public class Card implements Comparable<Card> {
 
     @Override
     public String toString() {
-        return "┌─────────────┐\n│ " + (value == 1 ? "A" : value == 11 ?  "J" : value == 12 ? "Q" : value == 13 ? "K" : value) + "           │\n│             │\n│             │\n│     " + (suit == 0 ? "Spa" : suit == 1 ? "Dia" : suit == 2 ? "Hrt" : "Clb") + "     │\n│             │\n│             │\n│           " + (value == 1 ? "A" : value == 11 ?  "J" : value == 12 ? "Q" : value == 13 ? "K" : value) + " │\n└─────────────┘";
+        return "\n┌─────────────┐\n│ " + (value == 1 ? "A" : value == 11 ?  "J" : value == 12 ? "Q" : value == 13 ? "K" : value) + "           │\n│             │\n│             │\n│             │\n│     " + (suit == 0 ? "Spa" : suit == 1 ? "Dia" : suit == 2 ? "Hrt" : "Clb") + "     │\n│             │\n│             │\n│             │\n│           " + (value == 1 ? "A" : value == 11 ?  "J" : value == 12 ? "Q" : value == 13 ? "K" : value) + " │\n└─────────────┘";
     }
 
     public int getValue() {
@@ -46,8 +45,8 @@ public class Card implements Comparable<Card> {
         this.value = value;
     }
 
-    public int getSuit() {
-        return suit;
+    public String getSuit() {
+        return (suit == 0 ? "Spa" : suit == 1 ? "Dia" : suit == 2 ? "Hrt" : "Clb");
     }
 
     public void setSuit(int suit) {
