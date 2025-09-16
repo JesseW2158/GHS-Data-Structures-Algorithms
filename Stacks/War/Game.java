@@ -4,45 +4,57 @@ import java.util.Scanner;
 
 // MY ACES ARE 1
 // FULL SCREEN TERMINAL OR ELSE TERMINAL MIGHT DISPLAY WEIRDLY
+// ANOTHER NOTE, CLEAR TERMINAL BEFORE RUNNING BECAUSE ASCII MIGHT AGAIN DISPLAY WEIRDLY
 
 public class Game {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Welcome to War!");
-
-        System.out.println("Enter the max value of the cards (1-13): ");
-        int max = scanner.nextInt();
-
-        System.out.println("Enter if the cards are shown to the player (True/False): ");
-        boolean isOpen = scanner.nextBoolean();
-
-        System.out.println("Enter if you want game to automatically play (True/False): ");
-        boolean auto = scanner.nextBoolean();
-
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-
-        War war = new War(max, isOpen, auto);
-
         boolean finished = false;
-        boolean lose = false;
 
-        while (!finished && !lose) {
-            war.battle();
+        while (!finished) {
+            System.out.println("Welcome to War!");
 
-            lose = (war.evaluate() == 1 ? );
+            System.out.println("Enter the max value of the cards (1-13): ");
+            int max = scanner.nextInt();
+
+            System.out.println("Enter if the cards are shown to the player (True/False): ");
+            boolean isOpen = scanner.nextBoolean();
+
+            System.out.println("Enter if you want game to automatically play (True/False): ");
+            boolean auto = scanner.nextBoolean();
+
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+
+            War war = new War(max, isOpen, auto);
+
+            while(war.evaluate() == 2) {
+                if(war.battle() == 0) {
+                    war.getGame().push(war.getPlayer1Deck().pop());
+                    war.getGame().push(war.getPlayer2Deck().pop());
+                }
+            }
+
+            System.out.println(war.evaluate() == 1 ? "You win!" : war.evaluate() == 0 ? "A tie...?" : "You lost :C");
+
+            finished = playerFinished(scanner);
+
+            if(!finished) {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
         }
 
         scanner.close();
     }
 
-    public static String winner(War war) {
+    // public static String winner(War war) {
 
-    }
+    // }
 
     public static boolean playerFinished(Scanner scanner) {
-        System.out.println("Another game (True/False): ");
+        System.out.println("Are you done playing (True/False): ");
 
         return scanner.nextBoolean();
     }

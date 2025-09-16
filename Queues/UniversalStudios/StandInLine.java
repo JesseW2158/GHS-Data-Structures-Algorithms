@@ -38,8 +38,5 @@ public class StandInLine {
         for(String s : queue) {
             aux.push(s);
         }
-
-        while()
-
     }
 }

@@ -40,15 +40,22 @@ public class War {
         shuffle(deck);
 
         for (int i = 0; i < max * 2; i++) {
-            player1Deck.push(deck.pop());
-            player2Deck.push(deck.pop());
+            this.player1Deck.push(deck.pop());
+            this.player2Deck.push(deck.pop());
         }
+
+        // this.player2Deck.push(new Card(max, max, max));
+        // this.player2Deck.push(new Card(max, max, max));
+
+        
+        // this.player1Deck.push(new Card(1, max, max));
+        // this.player1Deck.push(new Card(1, max, max));
     }
 
     /**
      * Under the assumption that both player's decks are not empty
      */
-    public void battle() {
+    public int battle() {
         Card player1Card = player1Deck.pop();
         Card player2Card = player2Deck.pop();
 
@@ -57,35 +64,72 @@ public class War {
 
         displayBattle(player1Card, player2Card);
 
-        if(player1Card.compareTo(player2Card) > 0) {
-            emptyGameDeck(player1Deck);
-        } else if(player1Card.compareTo(player2Card) < 0) {
-            emptyGameDeck(player2Deck);
+        if (player1Card.compareTo(player2Card) > 0) {
+            if(player1Deck.empty()) {
+                transfer(player1Deck, player1Refill);
+            }
+
+            if(player2Deck.empty()) {
+                transfer(player2Deck, player2Refill);
+            }
+
+            emptyGameDeck(player1Refill);
+            return 1;
+        } else if (player1Card.compareTo(player2Card) < 0) {
+            if(player1Deck.empty()) {
+                transfer(player1Deck, player1Refill);
+            }
+
+            if(player2Deck.empty()) {
+                transfer(player2Deck, player2Refill);
+            }
+            
+            emptyGameDeck(player2Refill);
+            return -1;
+        } else {
+            if(player1Deck.empty()) {
+                transfer(player1Deck, player1Refill);
+            }
+
+            if(player2Deck.empty()) {
+                transfer(player2Deck, player2Refill);
+            }
+
+            return 0;
         }
-
-        game.push(player1Deck.pop());
-        game.push(player2Deck.pop());
-
-        battle();
     }
 
     /**
-     * Evaluates whether a winner has appeared
+     * Transfers all cards from the refill deck to the playing deck
      * 
-     * @return 1 if player 1 wins return -1 if player 2 wins return 0 if tied
+     * @param deck
+     * @param refill
+     */
+    public void transfer(Stack<Card> deck, Stack<Card> refill) {
+        while (!refill.empty()) {
+            deck.push(refill.pop());
+        }
+    }
+
+    /**
+     * Evaluates whether a deck has appeared
+     * 
+     * @return 1 if player 1 wins return -1 if player 2 wins return 0 if tied returns 2 if game has not finished
      */
     public int evaluate() {
-        if(player1Deck.empty() && player2Deck.empty()) {
+        if (player1Deck.empty() && player2Deck.empty()) {
             return 0;
-        } else if (player1Deck.empty()) {
+        } else if (player2Deck.empty()) {
             return 1;
+        } else if (player1Deck.empty()) {
+            return -1;
         }
 
-        return -1;
+        return 2;
     }
 
     private void emptyGameDeck(Stack<Card> winner) {
-        while(!game.empty()) {
+        while (!game.empty()) {
             winner.push(game.pop());
         }
     }
@@ -94,8 +138,8 @@ public class War {
         System.out.println(toString());
 
         System.out.println("Player 1:" + player1Card + "\n\n Player 2:" + player2Card);
-        
-        if(!auto) {
+
+        if (!auto) {
             System.out.println("\nPress enter to continue...");
 
             try {
@@ -131,7 +175,7 @@ public class War {
     private void fillDeck(Stack<Card> deck) {
         for (int i = 1; i <= max; i++) {
             for (int j = 0; j < 4; j++) {
-                deck.push(new Card(i, j));
+                deck.push(new Card(i, j, max));
             }
         }
     }
@@ -158,14 +202,15 @@ public class War {
      * @return deck size of both players
      */
     private String score() {
-        return "Player 1 deck size: " + (player1Deck.size() + player1Refill.size()) +"\nPlayer 2 deck size: " + (player2Deck.size() + player2Refill.size());
+        return "Player 1 deck size: " + (player1Deck.size() + player1Refill.size()) + "\nPlayer 2 deck size: "
+                + (player2Deck.size() + player2Refill.size());
     }
 
     @Override
     public String toString() {
         String output = score() + "\n\n";
-
-        if(isOpen) {
+        
+        if (isOpen) {
             output += "Player 1's Deck:\n| ";
 
             for (Card card : player1Deck) {
@@ -185,7 +230,7 @@ public class War {
 
             output += player1Deck.peek().getValue() + "-" + player1Deck.peek().getSuit() + " | ";
 
-            for(int i = 1; i < player1Deck.size(); i++) {
+            for (int i = 1; i < player1Deck.size(); i++) {
                 output += "X | ";
             }
 
@@ -193,7 +238,7 @@ public class War {
 
             output += player2Deck.peek().getValue() + "-" + player2Deck.peek().getSuit() + " | ";
 
-            for(int i = 1; i < player2Deck.size(); i++) {
+            for (int i = 1; i < player2Deck.size(); i++) {
                 output += "X | ";
             }
 
@@ -249,5 +294,21 @@ public class War {
 
     public void setPlayer2Refill(Stack<Card> player2Refill) {
         this.player2Refill = player2Refill;
+    }
+
+    public boolean isAuto() {
+        return auto;
+    }
+
+    public void setAuto(boolean auto) {
+        this.auto = auto;
+    }
+
+    public Stack<Card> getGame() {
+        return game;
+    }
+
+    public void setGame(Stack<Card> game) {
+        this.game = game;
     }
 }

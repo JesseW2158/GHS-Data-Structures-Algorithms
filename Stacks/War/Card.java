@@ -1,7 +1,7 @@
 package Stacks.War;
 
 public class Card implements Comparable<Card> {
-    private static int max;
+    private int max;
     private int value;
     private int suit;
 
@@ -9,10 +9,12 @@ public class Card implements Comparable<Card> {
      * No need for default constructor since {@link War#War(int, boolean)} builds the deck without using default constructor
      * @param value
      * @param suit
+     * @param max
      */
-    public Card(int value, int suit) {
+    public Card(int value, int suit, int max) {
         this.value = value;
         this.suit = suit;
+        this.max = max;
     }
 
     /**
@@ -21,7 +23,15 @@ public class Card implements Comparable<Card> {
      */
     @Override
     public int compareTo(Card card) {
-        if(card.value == max && this.value == 1 || card.value < this.value) {
+        if(card.value == max && this.value == 1) {
+            return 1;
+        }
+
+        if(this.value == max && card.value == 1) {
+            return -1;
+        }
+
+        if(card.value < this.value) {
             return 1;
         }
 
