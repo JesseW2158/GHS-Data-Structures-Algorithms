@@ -29,6 +29,8 @@ public class Game {
 
             War war = new War(max, isOpen, auto);
 
+            System.out.println(war);
+
             while(war.evaluate() == 2) {
                 if(war.battle() == 0) {
                     war.getGame().push(war.getPlayer1Deck().pop());

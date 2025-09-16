@@ -67,7 +67,6 @@ public class War {
         displayBattle(player1Card, player2Card);
 
         if (player1Card.compareTo(player2Card) > 0) {
-            System.out.println("Here1");
             if(player1Deck.empty()) {
                 transfer(player1Deck, player1Refill);
             }
@@ -79,7 +78,6 @@ public class War {
             emptyGameDeck(player1Refill);
             return 1;
         } else if (player1Card.compareTo(player2Card) < 0) {
-            System.out.println("Here-1");
             if(player1Deck.empty()) {
                 transfer(player1Deck, player1Refill);
             }
@@ -91,7 +89,6 @@ public class War {
             emptyGameDeck(player2Refill);
             return -1;
         } else {
-            System.out.println("Here0");
             if(player1Deck.empty()) {
                 transfer(player1Deck, player1Refill);
             }
@@ -155,7 +152,7 @@ public class War {
             }
         } else {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
