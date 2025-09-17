@@ -62,41 +62,15 @@ public class War {
         game.push(player1Card);
         game.push(player2Card);
 
-        System.out.println(player1Card.compareTo(player2Card));
-
         displayBattle(player1Card, player2Card);
 
         if (player1Card.compareTo(player2Card) > 0) {
-            if(player1Deck.empty()) {
-                transfer(player1Deck, player1Refill);
-            }
-
-            if(player2Deck.empty()) {
-                transfer(player2Deck, player2Refill);
-            }
-
             emptyGameDeck(player1Refill);
             return 1;
         } else if (player1Card.compareTo(player2Card) < 0) {
-            if(player1Deck.empty()) {
-                transfer(player1Deck, player1Refill);
-            }
-
-            if(player2Deck.empty()) {
-                transfer(player2Deck, player2Refill);
-            }
-            
             emptyGameDeck(player2Refill);
             return -1;
         } else {
-            if(player1Deck.empty()) {
-                transfer(player1Deck, player1Refill);
-            }
-
-            if(player2Deck.empty()) {
-                transfer(player2Deck, player2Refill);
-            }
-
             return 0;
         }
     }
@@ -107,9 +81,19 @@ public class War {
      * @param deck
      * @param refill
      */
-    public void transfer(Stack<Card> deck, Stack<Card> refill) {
+    private void transfer(Stack<Card> deck, Stack<Card> refill) {
         while (!refill.empty()) {
             deck.push(refill.pop());
+        }
+    }
+
+    public void refill() {
+        if(this.player1Deck.empty()) {
+            transfer(this.player1Deck, this.player1Refill);
+        }
+
+        if(player2Deck.empty()) {
+            transfer(this.player2Deck, this.player2Refill);
         }
     }
 

@@ -29,20 +29,26 @@ public class Game {
 
             War war = new War(max, isOpen, auto);
 
-            System.out.println(war);
+            while (war.evaluate() == 2) {
+                if (war.battle() == 0) {
+                    war.refill();
 
-            while(war.evaluate() == 2) {
-                if(war.battle() == 0) {
+                    if (war.evaluate() != 2) {
+                        continue;
+                    }
+
                     war.getGame().push(war.getPlayer1Deck().pop());
                     war.getGame().push(war.getPlayer2Deck().pop());
                 }
+
+                war.refill();
             }
 
             System.out.println(war.evaluate() == 1 ? "You win!" : war.evaluate() == 0 ? "A tie...?" : "You lost :C");
 
             finished = playerFinished(scanner);
 
-            if(!finished) {
+            if (!finished) {
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
             }
