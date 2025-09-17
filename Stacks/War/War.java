@@ -136,7 +136,7 @@ public class War {
             }
         } else {
             try {
-                Thread.sleep(1);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -204,9 +204,21 @@ public class War {
                 output += card.getValue() + "-" + card.getSuit() + " | ";
             }
 
+            output += "\n\nPlayer 1's Refill Deck:\n| ";
+
+            for (Card card : player1Refill) {
+                output += card.getValue() + "-" + card.getSuit() + " | ";
+            }
+
             output += "\n\nPlayer 2's Deck:\n| ";
 
             for (Card card : player2Deck) {
+                output += card.getValue() + "-" + card.getSuit() + " | ";
+            }
+
+            output += "\n\nPlayer 2's Refill Deck:\n| ";
+
+            for (Card card : player2Refill) {
                 output += card.getValue() + "-" + card.getSuit() + " | ";
             }
 
@@ -215,17 +227,33 @@ public class War {
         } else {
             output += "Player 1's Deck:\n| ";
 
-            output += player1Deck.peek().getValue() + "-" + player1Deck.peek().getSuit() + " | ";
+            if(!player1Deck.empty()) {
+                output += player1Deck.peek().getValue() + "-" + player1Deck.peek().getSuit() + " | ";
+            }
 
             for (int i = 1; i < player1Deck.size(); i++) {
                 output += "X | ";
             }
 
+            output += "\n\nPlayer 1's Refill Deck:\n| ";
+
+            for (int i = 0; i < player1Refill.size(); i++) {
+                output += "X | ";
+            }
+
             output += "\n\nPlayer 2's Deck:\n| ";
 
-            output += player2Deck.peek().getValue() + "-" + player2Deck.peek().getSuit() + " | ";
+            if(!player2Deck.empty()) {
+                output += player2Deck.peek().getValue() + "-" + player2Deck.peek().getSuit() + " | ";
+            }
 
             for (int i = 1; i < player2Deck.size(); i++) {
+                output += "X | ";
+            }
+
+            output += "\n\nPlayer 2's Refill Deck:\n| ";
+
+            for (int i = 0; i < player2Refill.size(); i++) {
                 output += "X | ";
             }
 
