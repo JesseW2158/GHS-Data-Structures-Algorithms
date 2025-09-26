@@ -1,4 +1,4 @@
-package Queues.UniversalStudios;
+package Unit1.Queues.UniversalStudios;
 
 import java.util.LinkedList;
 import java.util.Queue;

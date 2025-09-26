@@ -1,0 +1,89 @@
+package Unit1.Stacks.War;
+
+public class Card implements Comparable<Card> {
+    private int max;
+    private int value;
+    private int suit;
+
+    /**
+     * No need for default constructor since {@link War#War(int, boolean)} builds
+     * the deck without using default constructor
+     * 
+     * @param value
+     * @param suit
+     * @param max
+     */
+    public Card(int value, int suit, int max) {
+        this.value = value;
+        this.suit = suit;
+        this.max = max;
+    }
+
+    /**
+     * @param card
+     * @return 1 if the card is greater than the other card, -1 if the card is less
+     *         than the other card, 0 if the cards are equal
+     */
+    @Override
+    public int compareTo(Card card) {
+        if (card.value == max && this.value == 1) {
+            return 1;
+        }
+
+        if (this.value == max && card.value == 1) {
+            return -1;
+        }
+
+        if (card.value < this.value) {
+            return 1;
+        }
+
+        if (card.value > this.value) {
+            return -1;
+        }
+
+        return 0;
+    }
+
+    /**
+     * Displays the card in an aesthetically pleasing manner
+     */
+    @Override
+    public String toString() {
+        return "\n┌─────────────┐\n│ "
+                + (value == 1 ? "A"
+                        : value == 10 ? "T" : value == 11 ? "J" : value == 12 ? "Q" : value == 13 ? "K" : value)
+                + "           │\n│             │\n│             │\n│             │\n│     "
+                + (suit == 0 ? "Spa" : suit == 1 ? "Dia" : suit == 2 ? "Hrt" : "Clb")
+                + "     │\n│             │\n│             │\n│             │\n│           "
+                + (value == 1 ? "A"
+                        : value == 10 ? "T" : value == 11 ? "J" : value == 12 ? "Q" : value == 13 ? "K" : value)
+                + " │\n└─────────────┘";
+    }
+
+    // GETTERS & SETTERS
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public String getSuit() {
+        return (suit == 0 ? "Spa" : suit == 1 ? "Dia" : suit == 2 ? "Hrt" : "Clb");
+    }
+
+    public void setSuit(int suit) {
+        this.suit = suit;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
+    }
+}

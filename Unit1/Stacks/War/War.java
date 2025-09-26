@@ -1,4 +1,4 @@
-package Stacks.War;
+package Unit1.Stacks.War;
 
 import java.io.IOException;
 import java.util.Stack;
@@ -43,13 +43,6 @@ public class War {
             this.player1Deck.push(deck.pop());
             this.player2Deck.push(deck.pop());
         }
-
-        // this.player2Deck.push(new Card(max, max, max));
-        // this.player2Deck.push(new Card(max, max, max));
-
-        
-        // this.player1Deck.push(new Card(1, max, max));
-        // this.player1Deck.push(new Card(1, max, max));
     }
 
     /**
@@ -87,12 +80,15 @@ public class War {
         }
     }
 
+    /**
+     * Checks and refills each player's deck if they're empty
+     */
     public void refill() {
-        if(this.player1Deck.empty()) {
+        if (this.player1Deck.empty()) {
             transfer(this.player1Deck, this.player1Refill);
         }
 
-        if(player2Deck.empty()) {
+        if (player2Deck.empty()) {
             transfer(this.player2Deck, this.player2Refill);
         }
     }
@@ -100,7 +96,8 @@ public class War {
     /**
      * Evaluates whether a deck has appeared
      * 
-     * @return 1 if player 1 wins return -1 if player 2 wins return 0 if tied returns 2 if game has not finished
+     * @return 1 if player 1 wins return -1 if player 2 wins return 0 if tied
+     *         returns 2 if game has not finished
      */
     public int evaluate() {
         if (player1Deck.empty() && player2Deck.empty()) {
@@ -114,12 +111,26 @@ public class War {
         return 2;
     }
 
+    /**
+     * Empties the game deck to whoever wins the battle
+     * 
+     * @param winner
+     */
     private void emptyGameDeck(Stack<Card> winner) {
         while (!game.empty()) {
             winner.push(game.pop());
         }
     }
 
+    /**
+     * Displays current battle. Decks and refills are shown first before the played
+     * cards
+     * and then asks the user if they want to continue if not on auto, if on auto,
+     * automatically waits 2 seconds before continuing
+     * 
+     * @param player1Card
+     * @param player2Card
+     */
     private void displayBattle(Card player1Card, Card player2Card) {
         System.out.println(toString());
 
@@ -193,10 +204,14 @@ public class War {
                 + (player2Deck.size() + player2Refill.size());
     }
 
+    /**
+     * Displays player 1 deck, then refill, then player 2 deck, then refill, shows
+     * all cards if game is open, shows first card of deck if game is closed
+     */
     @Override
     public String toString() {
         String output = score() + "\n\n";
-        
+
         if (isOpen) {
             output += "Player 1's Deck:\n| ";
 
@@ -227,12 +242,12 @@ public class War {
         } else {
             output += "Player 1's Deck:\n| ";
 
-            if(!player1Deck.empty()) {
-                output += player1Deck.peek().getValue() + "-" + player1Deck.peek().getSuit() + " | ";
-            }
-
             for (int i = 1; i < player1Deck.size(); i++) {
                 output += "X | ";
+            }
+
+            if (!player1Deck.empty()) {
+                output += player1Deck.peek().getValue() + "-" + player1Deck.peek().getSuit() + " | ";
             }
 
             output += "\n\nPlayer 1's Refill Deck:\n| ";
@@ -243,12 +258,12 @@ public class War {
 
             output += "\n\nPlayer 2's Deck:\n| ";
 
-            if(!player2Deck.empty()) {
-                output += player2Deck.peek().getValue() + "-" + player2Deck.peek().getSuit() + " | ";
-            }
-
             for (int i = 1; i < player2Deck.size(); i++) {
                 output += "X | ";
+            }
+
+            if (!player2Deck.empty()) {
+                output += player2Deck.peek().getValue() + "-" + player2Deck.peek().getSuit() + " | ";
             }
 
             output += "\n\nPlayer 2's Refill Deck:\n| ";
@@ -262,6 +277,8 @@ public class War {
 
         return output;
     }
+
+    // GETTERS & SETTERS
 
     public int getMax() {
         return max;
