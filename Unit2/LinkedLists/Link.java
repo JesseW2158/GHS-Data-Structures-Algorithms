@@ -9,6 +9,10 @@ public class Link {
 
         pop.addFirst(new Track("Love Story", 255));
         pop.addFirst(new Track("Dancing Queen", 200));
+        pop.addFirst(new Track("Happy Face", 200));
+        System.out.println(pop);
+        System.out.println();
+        pop.shuffle();
         System.out.println(pop);
     }
 }

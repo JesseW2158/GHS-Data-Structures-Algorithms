@@ -84,6 +84,86 @@ public class Playlist {
         return true;
     }
 
+    public int size() {
+        int size = 0;
+        Track runner = head;
+
+        if(runner != null) {
+            size++;
+        }
+
+        while(runner.getNext() != null) {
+            size++;
+            runner = runner.getNext();
+        }
+        
+        return size;
+    }
+
+    public Track getFront() {
+        return head;
+    }
+
+    public Track getBack() {
+        Track runner = head;
+
+        while(runner.getNext() != null) {
+            runner = runner.getNext();
+        }
+
+        return runner;
+    }
+
+    public Track remove() {
+        if(head == null) {
+            return null;
+        }
+
+        Track temp = head;
+        head = head.getNext();
+
+        return temp;
+    }
+
+    public void shuffle() {
+        if(this.size() == 0) {
+            return;
+        }
+
+        Track temp;
+        int random = (int) (Math.random() * this.size());
+        Track runner = head;
+
+        for(int i = 0; i < random - 1; i++) {
+            runner = runner.getNext();
+        }
+
+        temp = runner.getNext();
+        Track tempRunner = temp;
+        runner.setNext(runner.getNext().getNext()); // drops list by 1
+
+        while(this.size() > 1) {
+            random = (int) (Math.random() * this.size());
+            System.out.println(random);
+
+            for(int i = 0; i < random - 1; i++) {
+                runner = runner.getNext();
+            }
+
+            tempRunner.setNext(runner.getNext());
+            tempRunner = tempRunner.getNext();
+            runner.setNext(runner.getNext().getNext());
+        }
+
+        tempRunner.setNext(runner);
+
+        this.head = temp;
+    }
+
+    public boolean isEmpty() {
+        return head == null;
+    }
+
     @Override
     public String toString() {
         if (head == null) {
