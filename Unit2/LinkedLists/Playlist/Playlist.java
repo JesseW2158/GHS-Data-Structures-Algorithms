@@ -126,38 +126,9 @@ public class Playlist {
     }
 
     public void shuffle() {
-        if(this.size() == 0) {
-            return;
+        for(int i = 0; i < this.size(); i++) {
+            
         }
-
-        Track temp;
-        int random = (int) (Math.random() * this.size());
-        Track runner = head;
-
-        for(int i = 0; i < random - 1; i++) {
-            runner = runner.getNext();
-        }
-
-        temp = runner.getNext();
-        Track tempRunner = temp;
-        runner.setNext(runner.getNext().getNext()); // drops list by 1
-
-        while(this.size() > 1) {
-            random = (int) (Math.random() * this.size());
-            System.out.println(random);
-
-            for(int i = 0; i < random - 1; i++) {
-                runner = runner.getNext();
-            }
-
-            tempRunner.setNext(runner.getNext());
-            tempRunner = tempRunner.getNext();
-            runner.setNext(runner.getNext().getNext());
-        }
-
-        tempRunner.setNext(runner);
-
-        this.head = temp;
     }
 
     public boolean isEmpty() {

@@ -12,4 +12,9 @@ public class Node {
     public Node(int num) {
         this(num, null);
     }
+
+    @Override
+    public String toString() {
+        return "" + num + " -> " + next;
+    }
 }
