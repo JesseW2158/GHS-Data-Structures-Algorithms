@@ -6,15 +6,14 @@ public class Location {
     String name;
     Location next;
 
-    public Location(double x, double y, String name, Location next) {
+    public Location(String name, double x, double y) {
+        this.name = name;
         this.x = x;
         this.y = y;
-        this.name = name;
-        this.next = next;
     }
 
-    public Location(double x, double y, String name) {
-        this(x, y, name, null);
+    public Location() {
+        this("Home Base", 0, 0);
     }
 
     @Override
