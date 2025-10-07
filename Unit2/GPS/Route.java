@@ -17,7 +17,7 @@ public class Route {
     public boolean addLocation(Location loc) {
         Location runner = current;
 
-        while(runner.next != null) {
+        while (runner.next != null) {
             runner = runner.next;
         }
 
@@ -27,7 +27,7 @@ public class Route {
     }
 
     public boolean addLocation(int spot, Location loc) {
-        if(spot == 0) {
+        if (spot == 0) {
             loc.next = start;
             start = loc;
 
@@ -36,7 +36,7 @@ public class Route {
 
         Location runner = current;
 
-        for(int i = 0; i < spot - 1; i++) {
+        for (int i = 0; i < spot - 1; i++) {
             runner = runner.next;
         }
 
@@ -51,14 +51,33 @@ public class Route {
         Location runner = start;
         double distance = 0;
 
-        while(runner.next != null) {
+        while (runner.next != null) {
             distance += Math.hypot(runner.x - runner.next.x, runner.y - runner.next.y);
             runner = runner.next;
         }
 
-        distance +=  Math.hypot(runner.x - start.x, runner.y - start.y);
+        distance += Math.hypot(runner.x - start.x, runner.y - start.y);
 
         return distance;
+    }
+
+    public void reverseRoute() {
+        if (start == null || start.next == null) {
+            return;
+        }
+
+        Location front = start.next.next;
+        Location back = start.next;
+        back.next = null;
+
+        while (front != null) {
+            Location temp = front.next; 
+            front.next = back;
+            back = front;
+            front = temp;
+        }
+
+        start.next = back;
     }
 
     @Override
