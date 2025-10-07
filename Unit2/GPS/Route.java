@@ -81,12 +81,22 @@ public class Route {
     }
 
     public boolean removeLocation(Location loc) {
+        if(start == null) {
+            return false;
+        }
+
         boolean found = false;
         Location runner = start;
 
         while(runner.next != null) {
-            
+            if(runner.next.name == loc.next.name) {
+                found = true;
+
+                Temp 
+            }
         }
+
+        return found;
     }
 
     @Override
