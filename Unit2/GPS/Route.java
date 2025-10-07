@@ -80,6 +80,15 @@ public class Route {
         start.next = back;
     }
 
+    public boolean removeLocation(Location loc) {
+        boolean found = false;
+        Location runner = start;
+
+        while(runner.next != null) {
+            
+        }
+    }
+
     @Override
     public String toString() {
         return "" + start;
