@@ -160,6 +160,10 @@ public class Route {
         return max;
     }
 
+    public boolean swap(Location loc1, Location loc2) {
+        
+    }
+
     @Override
     public String toString() {
         return "" + start;
