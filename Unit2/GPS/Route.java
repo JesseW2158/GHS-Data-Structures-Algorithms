@@ -187,7 +187,6 @@ public class Route {
             return true;
         }
 
-        boolean swapped = false;
         Location prevLoc1 = null, frontLoc1 = null;
         Location prevLoc2 = null, frontLoc2 = null;
         Location runner = start;
