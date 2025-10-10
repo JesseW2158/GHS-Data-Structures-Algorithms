@@ -2,19 +2,27 @@ package Unit2.GPS;
 
 public class Tester {
     public static void main(String[] args) {
-        Route route = new Route(new Location("Chick Fil A", 4, 4));
+        Route route = new Route();
+        Location gasStation = new Location("GasStation", 3, 0);
+        Location centralRock = new Location("CentralRock", 3, 4);
+        Location pizzaShop = new Location("PizzaShop", 6, 4);
+        Location bookStore = new Location("BookStore", 6, 8);
 
-        route.addLocation(new Location("McDonalds", 16, 514));
-        route.addLocation(new Location("Ed Sheeran Concert", 3, 1));
+        route.addLocation(gasStation);
+        route.addLocation(centralRock);
+        route.addLocation(pizzaShop);
+        route.addLocation(bookStore);
 
-        System.out.println(route); //Home Base: (0.0, 0.0) -> Chick Fil A: (4.0, 4.0) -> McDonalds: (16.0, 514.0) -> Ed Sheeran Concert: (3.0, 1.0) -> null
+        System.out.println("Original Route:");
+        System.out.println(route.toString());
+        System.out.println("Original Distance: " + route.routeDistance());
 
-        //Distance between Home Base & Chick Fil A: 5.656854249
-        //Distance between Chick Fil A & McDonalds: 510.1411569
-        //Distance between McDonalds & Ed Sheeran Concert: 513.1646909
-        //Distance between Ed Sheeran Concert & Home Base: 3.16227766
+        route.swap(pizzaShop, bookStore);
 
-        System.out.println(route.longestLeg()); // should return 513.16
-        System.out.println(route.routeDistance()); //should return 1032.12498
+        System.out.println("\nAfter Swap:");
+        System.out.println(route.toString());
+        double totalDistance = route.routeDistance();
+        System.out.println("Expected Distance: 23.211");
+        System.out.println("Calculated Distance: " + totalDistance);
     }
 }
