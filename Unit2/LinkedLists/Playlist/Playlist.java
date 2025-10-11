@@ -46,7 +46,6 @@ public class Playlist {
         }
 
         Track runner = head;
-        Track temp = new Track(prec, 0);
 
         while (runner != null && !runner.equals(newTrack)) {
             runner = runner.getNext();
