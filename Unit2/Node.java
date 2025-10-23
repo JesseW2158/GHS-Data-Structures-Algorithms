@@ -1,4 +1,4 @@
-package Unit2.LinkedLists;
+package Unit2;
 
 public class Node {
     public int num;

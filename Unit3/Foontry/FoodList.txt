@@ -1,0 +1,111 @@
+Primary Food,Country,Dish 1,Dish 2,Dish 3,Dish 4
+Potato,France,Pommes Frites,Gratin Dauphinois,Hachis Parmentier,Pommes Anna
+Rice,Japan,Sushi,Onigiri,Mochi,Tamago Kake Gohan
+Wheat,Italy,Pasta Carbonara,Focaccia,Lasagna Sheets,Ciabatta Bread
+Chicken,India,Butter Chicken,Tandoori Chicken,Chicken Biryani,Chicken Korma
+Beef,USA,Steak with fries,BBQ Brisket,Beef Tacos,Sloppy Joes
+Tomato,Mexico,Pico de Gallo,Salsa Roja,Caldo de Tomate,Chilaquiles Sauce
+Corn,Thailand,Khao Phod,Corn Fritters,Sweet Corn Soup,Grilled Corn on the Cob
+Fish,Germany,Rollmops,Matjes (Soused Herring),Fischbrötchen,Schollenfilet
+Pork,Brazil,Feijoada,Churrasco Pork Ribs,Torresmo,Pernil Assado
+Egg,Greece,Avgolemono Soup,Kagianas (Scrambled Eggs),Spanakopita Filling,Feta Omelette
+Potato,India,Aloo Gobi,Samosa Filling,Batata Vada,Dum Aloo
+Rice,Thailand,Mango Sticky Rice,Khao Pad (Fried Rice),Green Curry with Rice,Tom Yum Rice Soup
+Wheat,USA,Sourdough Bread,Hamburger Buns,Pancakes,Bagels
+Chicken,France,Coq au Vin,Poulet Rôti,Chicken Provençal,Blanquette de Poulet
+Beef,Italy,Bistecca alla Fiorentina,Tagliata di Manzo,Bolognese Sauce (with beef),Polpette (Meatballs)
+Tomato,Greece,Domatokeftedes (Tomato Fritters),Greek Salad (Horiatiki),Gemista,Tomato Soup
+Corn,Mexico,Tortillas,Tamales,Esquites,Gorditas
+Fish,Japan,Tempura,Sashimi,Grilled Mackerel,Tai Meshi
+Pork,Germany,Bratwurst,Schweinshaxe,Schnitzel (Pork),Currywurst
+Egg,France,Omelette Fines Herbes,Crème Brûlée,Quiche Lorraine,Soufflé
+Potato,Mexico,Papas con Chorizo,Tacos de Papa,Rajas con Crema,Enchilada Filling
+Rice,India,Pulao,Idli Batter,Dosa Batter,Kheer (Rice Pudding)
+Wheat,Germany,Pretzels (Laugenbrezel),Black Forest Cake,Pumpernickel Bread,Spätzle
+Chicken,Mexico,Pollo en Mole,Fajitas de Pollo,Tinga de Pollo,Sopa Azteca
+Beef,India,Beef Curry (Kerala style),Seekh Kebab,Bhuna Gosht,Nihari
+Tomato,Italy,Marinara Sauce,Caprese Salad,Bruschetta Topping,Puttanesca Sauce
+Corn,USA,Cornbread,Corn Chowder,Popcorn,Grits
+Fish,Thailand,Pla Pao (Grilled Fish),Fish Cakes (Tod Mun Pla),Hor Mok (Curry Custard),Fish Sauce
+Pork,USA,Pulled Pork,Pork Ribs,Bacon,Pork Chops
+Egg,Japan,Tamagoyaki,Chawanmushi,Onsen Tamago,Oyakodon
+Potato,Germany,Kartoffelsalat (Potato Salad),Bratkartoffeln,Kartoffelknödel,Reibekuchen
+Rice,Brazil,Arroz e Feijão,Risoto (Brazilian style),Arroz Doce,Mugunzá
+Wheat,Brazil,Pão de Queijo (made with wheat flour sometimes),Coxinha Dough,Pastel Dough,Esfirra
+Chicken,Brazil,Frango a Passarinho,Galinhada,Chicken Strogonoff,Coxinha Filling
+Beef,Mexico,Carne Asada,Barbacoa,Tacos al Pastor (sometimes beef),Birria
+Tomato,Thailand,Nam Prik Ong,Thai Boat Noodles,Tomatoes in Stir-fries,Som Tum (Tomato in Dressing)
+Corn,Greece,Cornbread (Bobota),Corn Fritters (Kalamata),Savory Corn Pie,Grilled Corn with Feta
+Fish,Italy,Fritto Misto,Baccalà (Cod),Cioppino,Sardines in Oil
+Pork,France,Paté de Campagne,Saucisson Sec,Rillettes,Jambon de Paris
+Egg,India,Anda Curry,Egg Bhurji,Masala Omelette,Egg Rolls
+Potato,USA,Mashed Potatoes,Baked Potato,Hash Browns,Potato Chips
+Rice,Mexico,Mexican Red Rice (Arroz Rojo),Rice in Chile Relleno,Sweet Rice Pudding,Rice Water (Horchata)
+Wheat,Thailand,Roti,Spring Roll Wrappers,Thai Noodle Varieties,Thai Pancakes
+Chicken,Japan,Yakitori,Karaage,Tori no Teriyaki,Chicken Katsu
+Beef,Germany,Sauerbraten,Rouladen,Currywurst (Beef option),Gulasch
+Tomato,USA,Ketchup,Chili,Salsa (Store-bought),Tomato Juice
+Corn,India,Makki ki Roti,Corn Bhel,Sweet Corn Chaat,Corn Palak
+Fish,Brazil,Moqueca,Peixe Ensopado,Acarajé (with shrimp),Sardinhas Fritas
+Pork,Italy,Prosciutto,Sausage (Salsiccia),Guanciale,Cotechino
+Egg,Mexico,Huevos Rancheros,Chilaquiles with Egg,Egg Tacos,Egg Burritos
+Potato,Brazil,Batata Palha,Vatapá (Potato base),Pastel Filling,Purê de Batata
+Rice,Greece,Dolmades (Rice stuffing),Pilaf,Rizogalo (Rice Pudding),Yemista (Rice in vegetables)
+Wheat,Greece,Pita Bread,Baklava,Koulouri,Tsoureki (Sweet Bread)
+Chicken,Germany,Gefüllte Hähnchenbrust,Hähnchen-Schnitzel,Chicken Frikadellen,Hähnchen-Eintopf
+Beef,Brazil,Picanha (Steak),Escondidinho de Carne Seca,Empadão Filling,Bife Acebolado
+Tomato,Germany,Tomatensuppe (Creamy),Salat with Tomato,Curry Ketchup,Tomato Sandwich
+Corn,France,Corn Salad,Maize Porridge,Savory Corn Pancakes,Corn Fritters
+Fish,USA,Clam Chowder,Fish Tacos,Cajun Catfish,Fish and Chips (American Style)
+Pork,Thailand,Moo Ping (Grilled Pork),Pork Satay,Tom Yum with Pork,Pad Kra Pao Moo
+Egg,Germany,Eierkuchen (Pancakes),Frankfurter Grüne Soße,Kartoffelknödel Binding,Eiersalat
+Potato,Japan,Nikujaga,Korokke (Croquettes),Jaga Bata (Butter Potato),Potato Salad
+Rice,France,Riz au Lait,Poulet au Riz,Camargue Rice Dishes,Rice Salad
+Wheat,Mexico,Flour Tortillas,Pan Dulce,Churros,Marquesote Cake
+Chicken,Italy,Chicken Cacciatore,Saltimbocca (with chicken),Chicken Marsala,Pollo alla Diavola
+Beef,Japan,Sukiyaki,Shabu-Shabu,Gyūdon (Beef Bowl),Wagyu Steak
+Tomato,Japan,Tomato Salad (with sesame dressing),Tomato in Miso Soup,Tomato with Tofu,Cold Tomato Dishes
+Corn,Brazil,Pamonha,Curau,Cuscuz,Canjica
+Fish,Mexico,Ceviche,Pescado Zarandeado,Fish Tacos,Sopa de Pescado
+Pork,Greece,Souvlaki (Pork),Gyros Filling,Keftedes (Pork Meatballs),Pork Roast
+Egg,Thailand,Khai Jiao (Omelette),Khai Loog Keuy (Son-in-Law Eggs),Egg Noodles,Steamed Egg
+Potato,Italy,Gnocchi,Potato Pizza Topping,Saltimbocca Side,Baked Potato with Rosemary
+Rice,Germany,Milchreis (Rice Pudding),Reissalat (Rice Salad),Rice Side Dishes,Gefüllter Reis
+Wheat,France,Crêpes,Baguette,Croissant,Pain au Chocolat
+Chicken,USA,Chicken Noodle Soup,Chicken Pot Pie,Buffalo Chicken Dip,Chicken Sandwich
+Beef,Greece,Moussaka (Beef/Lamb mix),Stifado,Keftedes (Beef Meatballs),Pastitsio Filling
+Tomato,Brazil,Salsa Vinagrette,Tomato Salad,Pizza Topping,Tomato in Feijoada
+Corn,Japan,Grilled Corn (Yakimoro),Corn in Ramen,Corn Potage Soup,Sweet Corn Tempura
+Fish,France,Bouillabaisse,Sole Meunière,Moules Marinières,Brandade de Morue
+Pork,India,Pork Vindaloo,Pork Roast (Goan),Pork Curry,Pork Stir-Fry (Northeast India)
+Egg,USA,Scrambled Eggs,Deviled Eggs,Egg Salad Sandwich,Breakfast Burrito
+Potato,Thailand,Gaeng Som (Sour Curry with potato),Potato in Massaman Curry,Fried Potato Wedges,Potato in Stir-fry
+Rice,USA,Dirty Rice,Rice Pilaf,Jambalaya,Rice Krispies Treats
+Wheat,India,Naan,Roti/Chapati,Puri,Paratha
+Chicken,Greece,Lemon Chicken and Potatoes,Avgolemono Soup (with chicken),Souvlaki (Chicken),Gyros (Chicken)
+Beef,France,Pot-au-feu,Boeuf Bourguignon,Steak Frites,Steak Tartare
+Tomato,Mexico,Gazpacho (Mexican Style),Tomatillo-Tomato Salsas,Huevos Rancheros Sauce,Mole
+Corn,Germany,Polenta (used in Southern Germany),Corn Fritters,Sweet Corn Salad,Corn in Soup
+Fish,India,Fish Curry (Goan),Fish Fry (Bengali),Tandoori Fish,Fish Biryani
+Pork,Japan,Tonkatsu,Chāshū (Ramen topping),Shōgayaki,Kushikatsu
+Egg,Italy,Frittata,Tiramisu (Egg Yolks),Zabaione,Biscotti (Egg Wash)
+Potato,Greece,Lemon Potatoes,Skordalia (Garlic Potato Dip),Mousaka Topping,Potato and Egg Salad
+Rice,Italy,Risotto,Arancini,Minestrone (with rice),Rice Cakes
+Wheat,Germany,Sausage Rolls,German Pancakes,Stollen,Streusel Cake
+Chicken,Thailand,Gai Yang (Grilled Chicken),Pad See Ew (with chicken),Massaman Curry,Tom Kha Gai
+Beef,USA,Meatloaf,Cheeseburger,T-Bone Steak,Chili con Carne
+Tomato,Greece,Tomato Sauce for Pasta,Ketchup (Used),Tomato Paste in Stifado,Tomato Paste in Gemista
+Corn,USA,Sweet Corn on the Cob,Fritos,Tostadas,Corn Dogs
+Fish,Germany,Pickled Herring,Smoked Salmon,Baked Cod,Fish Soup
+Pork,Mexico,Carnitas,Cochinita Pibil,Chicharrón,Pozole (with pork)
+Egg,Brazil,Ovo Mexido (Scrambled),Bolo de Fubá (Cake),Quindim,Pão de Queijo (Binding)
+Potato,India,Potato Chips (Indian Brands),Vada Pav,Aloo Tikki,Jeera Aloo
+Rice,Japan,Donburi,Ochazuke,Kare Raisu (Curry Rice),Inarizushi
+Wheat,Italy,Grissini (Breadsticks),Taralli,Zeppole,Pizzelle
+Chicken,India,Chicken 65,Chilli Chicken,Hyderabadi Biryani,Dosa Filling
+Beef,Mexico,Birria de Res,Guisado de Res,Sopa de Albóndigas,Fajitas de Res
+Tomato,France,Soupe de Tomate,Confit de Tomates,Tomate Farcie,Salade Niçoise
+Corn,Thailand,Khao Niao (Sticky Rice - sometimes mixed),Corn in Salads,Sweet Corn Pudding,Grilled Corn
+Fish,USA,Tuna Salad,Po' Boy Sandwich,Lobster Rolls (with fish filling sometimes),Fish Sticks
+Pork,Germany,Leberkäse,Hackepeter,Sauerbraten (Pork variation),Pork Roast
+Egg,France,Mayonnaise,Chocolate Mousse (Egg Whites),Crêpe Batter,Cloud Eggs
