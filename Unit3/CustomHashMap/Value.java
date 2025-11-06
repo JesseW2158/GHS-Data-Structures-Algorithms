@@ -2,15 +2,9 @@ package Unit3.CustomHashMap;
 
 public class Value {
     private int value;
-    private Value next;
-
-    public Value(int value, Value next) {
-        this.value = value;
-        this.next = next;
-    }
 
     public Value(int value) {
-        this(value, null);
+        this.value = value;
     }
 
     public int getValue() {
@@ -21,16 +15,8 @@ public class Value {
         this.value = value;
     }
 
-    public Value getNext() {
-        return next;
-    }
-
-    public void setNext(Value next) {
-        this.next = next;
-    }
-
     @Override
     public String toString() {
-        return "" + value + " -> " + next;
+        return "" + this.value;
     }
 }

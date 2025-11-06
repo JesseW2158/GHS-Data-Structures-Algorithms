@@ -7,7 +7,7 @@ public class CircularLinked {
 
         Node temp = CircleLink(List1, List2);
 
-        System.out.println();
+        System.out.println(temp);
     }
 
     public static Node CircleLink(Node list1, Node list2) {
