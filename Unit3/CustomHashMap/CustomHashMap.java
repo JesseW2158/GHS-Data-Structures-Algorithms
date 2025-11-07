@@ -89,9 +89,12 @@ public class CustomHashMap {
         
         for (Entry entry : temp) {
             if (entry != null) {
-                Entry runner = table[entry.getKey().hashCode() % table.length]
+                Entry runner = new Entry()
+                runner.setNext(table[entry.getKey().hashCode() % table.length]);
 
                 while(runner.getNext() != null) {
+                    this.put(runner);
+
                     runner = runner.getNext();
                 }
             }
