@@ -18,10 +18,15 @@ public class Key {
     }
 
     public int getKey() {
-        return key;
+        return this.key;
     }
 
     public void setKey(int key) {
         this.key = key;
+    }
+
+    @Override
+    public String toString() {
+        return "" + this.key;
     }
 }

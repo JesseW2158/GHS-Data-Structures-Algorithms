@@ -28,7 +28,7 @@ public class Entry {
     }
 
     public Value getValue() {
-        return value;
+        return this.value;
     }
 
     public void setValue(Value value) {
@@ -36,10 +36,15 @@ public class Entry {
     }
 
     public Entry getNext() {
-        return next;
+        return this.next;
     }
 
     public void setNext(Entry next) {
         this.next = next;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + this.key + ", " + this.value + ") --> " + next;
     }
 }
