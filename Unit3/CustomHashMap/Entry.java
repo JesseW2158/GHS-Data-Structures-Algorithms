@@ -45,6 +45,6 @@ public class Entry {
 
     @Override
     public String toString() {
-        return "(" + this.key + ", " + this.value + ") --> " + next;
+        return "<" + this.key + ", " + this.value + "> --> " + next;
     }
 }
