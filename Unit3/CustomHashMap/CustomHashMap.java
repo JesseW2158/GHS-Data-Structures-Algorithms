@@ -11,9 +11,10 @@ public class CustomHashMap {
     private static final double MAX_LOAD_FACTOR = 0.75;
     private static final double MIN_LOAD_FACTOR = 0.1;
     private static final int MIN_TABLE_LENGTH = 10;
+    private static final int TABLE_SIZE = 8;
 
     public CustomHashMap() {
-        this.table = new Entry[8];
+        this.table = new Entry[TABLE_SIZE];
         this.size = 0;
     }
 
@@ -54,13 +55,18 @@ public class CustomHashMap {
 
         this.size++;
 
-        if (loadFactor() > MAX_LOAD_FACTOR || (loadFactor() < MIN_LOAD_FACTOR && table.length > MIN_TABLE_LENGTH)) {
+        if (loadFactor() >= MAX_LOAD_FACTOR || (loadFactor() <= MIN_LOAD_FACTOR && table.length > MIN_TABLE_LENGTH)) {
             debugPrint();
+            System.out.println("\n\n");
             rehash();
         }
 
         return prev;
     }
+
+    // public int countCollisions() {
+
+    // }
 
     public Entry get(Key key) {
         if (table[key.hashCode() % table.length].getNext() == null) {
@@ -85,50 +91,33 @@ public class CustomHashMap {
     }
 
     public void rehash() {
-        Entry[] temp = table;
+        Entry[] temp = table.clone();
 
-        if (loadFactor() > MAX_LOAD_FACTOR) {
-            table = new Entry[temp.length * 2];
+        if (loadFactor() >= MAX_LOAD_FACTOR) {
+            this.table = new Entry[temp.length * 2];
 
             this.size = 0;
 
             for (Entry entry : temp) {
                 if (entry != null) {
-                    Entry tableRunner = new Entry(new Key(0), new Value(null));
-                    tableRunner.setNext(table[entry.getKey().hashCode() % table.length]);
+                    Entry tempRunner = temp[entry.getKey().hashCode() % temp.length];
 
-                    while (tableRunner.getNext() != null) {
-                        if (table[entry.getKey().hashCode() % table.length] == null) {
-                            table[entry.getKey().hashCode() % table.length] = entry;
+                    while (tempRunner != null) {
+                        if (table[tempRunner.getKey().hashCode() % table.length] == null) {
+                            table[tempRunner.getKey().hashCode() % table.length] = new Entry(tempRunner.getKey(), tempRunner.getValue());
                         } else {
                             Entry runner = table[entry.getKey().hashCode() % table.length];
-                            boolean inserted = false;
 
                             while (runner.getNext() != null) {
-                                if (runner.getNext().getKey().equals(entry.getKey())) {
-                                    Entry next = table[entry.getKey().hashCode() % table.length].getNext().getNext();
-
-                                    runner.setNext(entry);
-                                    runner.getNext().setNext(next);
-
-                                    inserted = true;
-
-                                    this.size--;
-
-                                    break;
-                                }
-
                                 runner = runner.getNext();
                             }
 
-                            if (!inserted) {
-                                runner.setNext(entry);
-                            }
+                            runner.setNext(new Entry(tempRunner.getKey(), tempRunner.getValue()));
                         }
 
                         this.size++;
 
-                        tableRunner = tableRunner.getNext();
+                        tempRunner = tempRunner.getNext();
                     }
                 }
             }
@@ -172,11 +161,8 @@ public class CustomHashMap {
     // }
 
     public void debugPrint() {
-        System.out.println("");
-        System.out.println("[");
-        for (Entry entry : table) {
+        for(Entry entry: table) {
             System.out.println(entry);
         }
-        System.out.print("]");
     }
 }

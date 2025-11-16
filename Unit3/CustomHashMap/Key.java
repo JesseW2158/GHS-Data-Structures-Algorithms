@@ -7,10 +7,11 @@ public class Key {
         this.key = key;
     }
 
+    @Override
     public int hashCode() {
-        String hash = Integer.toString(key * key);
+        String hash = Long.toString((long) key * (long) key);
 
-        return (hash.length() <= 2) ? Integer.parseInt(hash) : Integer.parseInt(hash.substring(1, hash.length() - 1));
+        return (hash.length() <= 4) ? Integer.parseInt(hash) : Integer.parseInt(hash.substring(2, hash.length() - 2));
     }
 
     public boolean equals(Key other) {
