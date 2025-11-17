@@ -9,9 +9,7 @@ public class Key {
 
     @Override
     public int hashCode() {
-        String hash = Long.toString((long) key * (long) key);
-
-        return (hash.length() <= 4) ? Integer.parseInt(hash) : Integer.parseInt(hash.substring(2, hash.length() - 2));
+        return (key * 0x9E3779B9) >>> 16;
     }
 
     public boolean equals(Key other) {
