@@ -11,7 +11,7 @@ public class LinkSort {
         }
 
         System.out.println(Arrays.toString(arr));
-        recursiveBubbleSort(arr, arr.length - 1);
+        selectionSort(arr);
         System.out.println(Arrays.toString(arr));
     }
 
@@ -59,8 +59,18 @@ public class LinkSort {
         recursiveBubbleSort(arr, length - 1);
     }
 
-    public static void selectionSort() {
-        
+    public static void selectionSort(int[] arr) {        
+        for(int i = 0; i < arr.length; i++) {
+            int min_index = i;
+
+            for(int j = i + 1; j < arr.length; j++) {
+                if(arr[j] < arr[min_index]) {
+                    min_index = j;
+                }
+            }
+
+            swap(arr, i, min_index);
+        }
     }
 
     public static void recursiveSelectionSort() {
