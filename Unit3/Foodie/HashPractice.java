@@ -1,3 +1,5 @@
+package Unit3.Foodie;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -7,9 +9,7 @@ import java.util.Set;
 
 public class HashPractice {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
+	public static void main(String[] args) {		
 		HashMap<String, Set<String>> fruitMap = new HashMap<>();
 		Set<String> fruits = new HashSet<>(Set.of("Banana","Lemon","Apple")); 
 	

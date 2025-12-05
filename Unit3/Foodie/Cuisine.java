@@ -1,3 +1,5 @@
+package Unit3.Foodie;
+
 import java.util.HashSet;
 
 public class Cuisine {

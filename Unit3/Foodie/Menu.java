@@ -1,8 +1,10 @@
+package Unit3.Foodie;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class Menu implements Iterable {
+public class Menu implements Iterable<Entree> {
 	Entree[] menu;
 	int size;
 	public static final double MAXLOAD = .75;
@@ -102,12 +104,11 @@ public class Menu implements Iterable {
 	}
 
 	@Override
-	public Iterator iterator() {
-		// TODO Auto-generated method stub
+	public Iterator<Entree> iterator() {
 		return new foodIt();
 	}
 
-	private class foodIt implements Iterator {
+	private class foodIt implements Iterator<Entree> {
 		int index;
 
 		public foodIt() {
@@ -124,13 +125,11 @@ public class Menu implements Iterable {
 
 		@Override
 		public boolean hasNext() {
-			// TODO Auto-generated method stub
 			return index < menu.length;
 		}
 
 		@Override
-		public Object next() {
-			// TODO Auto-generated method stub
+		public Entree next() {
 			if (hasNext()) {
 				Entree temp = menu[index++];
 				moveToNext();

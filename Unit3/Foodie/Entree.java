@@ -1,3 +1,4 @@
+package Unit3.Foodie;
 
 public class Entree {
 	Foontry key;

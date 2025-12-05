@@ -1,3 +1,5 @@
+package Unit3.Foodie;
+
 import java.util.Objects;
 
 public class Foontry {

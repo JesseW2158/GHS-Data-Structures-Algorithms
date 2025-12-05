@@ -1,3 +1,5 @@
+package Unit3.Foodie;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -7,9 +9,7 @@ import java.util.Scanner;
 
 public class Hashcodes {
 
-	public static void main(String[] args) throws FileNotFoundException {
-		// TODO Auto-generated method stub
-		
+	public static void main(String[] args) throws FileNotFoundException {		
 		Object object = new Object();
 		System.out.println(object.hashCode());
 		Object object2 = new Object();
@@ -63,7 +63,7 @@ public class Hashcodes {
 			System.out.println(ent);
 		}
 		
-		
+		foods.close();
 	}
 
 }
