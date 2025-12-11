@@ -52,7 +52,7 @@ public class Piece implements Comparable<Piece> {
         return number - piece.getNumber();
     }
 
-    //GETTERS AND SETTERS
+    //#region Getters & Setters & toString
     
     public Color getColor() {
         return color;
@@ -109,4 +109,11 @@ public class Piece implements Comparable<Piece> {
     public void setyPos(int yPos) {
         this.yPos = yPos;
     }
+
+    @Override
+    public String toString() {
+        return "" + this.number;
+    }
+
+    //#endregion
 }

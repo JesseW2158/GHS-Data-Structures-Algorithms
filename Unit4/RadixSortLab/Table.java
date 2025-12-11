@@ -11,6 +11,7 @@ import java.util.Comparator;
 public class Table extends JPanel {
     Piece[] pieces;
     RandomNumber[] randomNumbers;
+    int MAX_NUMBER = 1000;
 
     public Table(int pieces, int screenWidth, int delayInMillis) {
         this.pieces = new Piece[pieces];
@@ -23,7 +24,7 @@ public class Table extends JPanel {
 
         for(int i = 0; i < this.pieces.length; i++) {
             this.pieces[i] = new Piece(pieces, screenWidth);
-            this.pieces[i].setNumber((int)((Math.random() * 10 ) + 1));
+            this.pieces[i].setNumber((int)((Math.random() * MAX_NUMBER) + 1));
 
             if(i > 0) {
                 this.pieces[i].setX(this.pieces[i - 1].getX() + this.pieces[i - 1].getWidth()); //makes each piece a equal width of the previous piece
@@ -42,7 +43,7 @@ public class Table extends JPanel {
 
         for(int i = 0; i < randomNumbers.length; i++) {
             randomNumbers[i].draw(graphics);
-            randomNumbers[i].setY(randomNumbers[i].getY() + ((Math.random() * 2 > 0.5) ? 0 : 1));
+            randomNumbers[i].setY(randomNumbers[i].getY() + ((Math.random() * 2 > 0.5) ? 1 : 2));
 
             if(randomNumbers[i].getY() > 650) {
                 randomNumbers[i].setY(0);
