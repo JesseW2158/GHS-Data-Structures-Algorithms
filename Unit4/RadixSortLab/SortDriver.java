@@ -60,7 +60,7 @@ public class SortDriver {
     if (sortType.equals(sortChoices[0])) { // user selects MSD sort
       table.pieces = MSDSort(table.getPieces(), maxNumLength(table.getPieces()) - 1);
     } else { // user selects LSD sort
-      table.pieces = LSDSort(table.getPieces());
+      table.pieces = LSDSort(table.getPieces(), maxNumLength(table.getPieces()));
     }
 
     // lets user know sorting has finished
@@ -161,8 +161,48 @@ public class SortDriver {
     return combined;
   }
 
-  public static Piece[] LSDSort(Piece[] pieces, int digitPos) {
+  public static Piece[] LSDSort(Piece[] pieces, int maxLength) {
+    for (int i = 0; i < maxLength; i++) {
+      int[] counts = new int[BASE];
+      int[] cumulative = new int[BASE];
 
+      for (Piece piece : pieces) {
+        counts[getDigitAt(piece, i)]++;
+      }
+
+      cumulative[0] = counts[0];
+
+      for (int j = 1; j < BASE; j++) {
+        cumulative[j] = cumulative[j - 1] + counts[j];
+      }
+
+      System.out.print("[ ");
+      for (Piece piece : pieces) {
+        System.out.print(piece.number + " ");
+      }
+      System.out.println("]");
+
+      Piece[] temp = new Piece[pieces.length];
+
+      for (int j = pieces.length - 1; j >= 0; j--) {
+        System.out.println(pieces[j].number);
+        System.out.println(getDigitAt(pieces[j], i));
+        System.out.println(cumulative[getDigitAt(pieces[j], i)] - 1);
+        System.out.println();
+        temp[cumulative[getDigitAt(pieces[j], i)] - 1] = pieces[j];
+        cumulative[getDigitAt(pieces[j], i)]--;
+      }
+
+      pieces = temp;
+
+      System.out.print("[ ");
+      for (Piece piece : temp) {
+        System.out.print(piece.number + " ");
+      }
+      System.out.println("]");
+    }
+
+    return pieces;
   }
 
   private static int getDigitAt(Piece piece, int digitPos) {
