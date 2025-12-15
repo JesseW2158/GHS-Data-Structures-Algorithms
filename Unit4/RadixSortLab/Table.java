@@ -13,8 +13,8 @@ public class Table extends JPanel {
     RandomNumber[] randomNumbers;
     int MAX_NUMBER = 1000;
 
-    public Table(int pieces, int screenWidth, int delayInMillis) {
-        this.pieces = new Piece[pieces];
+    public Table(Piece[] pieces, int screenWidth, int delayInMillis) {
+        this.pieces = pieces;
 
         randomNumbers = new RandomNumber[Math.min(200, (int) (Math.random() * 400) + 200)];
 
@@ -23,9 +23,6 @@ public class Table extends JPanel {
         }
 
         for (int i = 0; i < this.pieces.length; i++) {
-            this.pieces[i] = new Piece(pieces, screenWidth);
-            this.pieces[i].number = ((int) ((Math.random() * MAX_NUMBER) + 1));
-
             if (i > 0) {
                 this.pieces[i].x = this.pieces[i - 1].x + this.pieces[i - 1].width; // makes each piece a equal width of
                                                                                     // the previous piece
@@ -44,7 +41,7 @@ public class Table extends JPanel {
 
         for (int i = 0; i < randomNumbers.length; i++) {
             randomNumbers[i].draw(graphics);
-            randomNumbers[i].setY(randomNumbers[i].getY() + ((Math.random() * 2 > 0.5) ? 1 : 2));
+            randomNumbers[i].setY(randomNumbers[i].getY() + ((Math.random() * 2 > 0.5) ? 0 : 1));
 
             if (randomNumbers[i].getY() > 650) {
                 randomNumbers[i].setY(0);
@@ -59,30 +56,6 @@ public class Table extends JPanel {
 
         at = AffineTransform.getQuadrantRotateInstance(0);
         g2d.setTransform(at);
-
-        rules(graphics);
-    }
-
-    public void rules(Graphics graphics) { // will render weirdly since my laptop does something different then the
-                                           // computers in the steam lab
-        // draws the rules
-        graphics.setFont(new Font("Arial", Font.PLAIN, 50));
-
-        graphics.setColor(Color.BLUE);
-        graphics.drawString("Blue is the object being compared", 700, 650);
-
-        graphics.setColor(Color.RED);
-        graphics.drawString("Red is the object comparing to the blue object", 700, 550);
-        graphics.drawString("and will convert to a scrambled number when being mutated", 700, 500);
-
-        graphics.setColor(Color.GREEN);
-        graphics.drawString("Green are objects not being accessed or mutated right now", 700, 400);
-
-        graphics.setColor(Color.YELLOW);
-        graphics.drawString("Yellow is the minimum number", 700, 300);
-
-        graphics.setColor(Color.WHITE);
-        graphics.drawString("White is the current value that the insertion algorithm is on", 700, 200);
     }
 
     public void reverseOrder() { // sorts the array in reverse order

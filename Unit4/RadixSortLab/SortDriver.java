@@ -1,11 +1,14 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class SortDriver {
   private static String[] sortChoices = { "MSD", "LSD" };
-  private static String[] startStates = { "Random", "Reverse" };
 
   static JFrame window;
   static Table table;
@@ -14,35 +17,34 @@ public class SortDriver {
   static final int BASE = 10;
 
   // TODO Add way to input path to file
-  public static void main(String[] args) throws InterruptedException {
+  public static void main(String[] args) throws InterruptedException, FileNotFoundException {
     window = new JFrame("Escaping the Matrix"); // creating JFrame window
 
     window.setSize(800, 650);
-    window.setResizable(false);
-    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // closes the JFrame window if they click the red X
+    window.setResizable(true);
+    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // closes the JFrame window if they click the X
 
     // Asks how many milliseconds do you want between each comparison?
     delayInMillis = Integer
         .parseInt(JOptionPane.showInputDialog(null, "How many milliseconds do you want between each comparison?"));
 
-    // asks for the number of pieces you want to sort?
-    int pieces = Integer
-        .parseInt(JOptionPane.showInputDialog(null, "How many pieces do you want to sort? (Min: 3, Max: 50)"));
+    JFileChooser file = new JFileChooser(new File(System.getProperty("user.dir")));
+    boolean fileFound = false;
 
-    table = new Table(pieces, window.getWidth(), delayInMillis);
+    while (!fileFound) { // Ensures some file has been selected
+      if (file.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+        System.out.println("File selected.");
+        fileFound = true;
+      } else {
+        System.out.println("File not selected. Please try again.");
+      }
+    }
+
+    table = new Table(loadFromFile(file.getSelectedFile(), window.getWidth()), window.getWidth(), delayInMillis);
 
     // which sorting algorithm do you want to use?
     String sortType = JOptionPane.showInputDialog(null, "Which sort do you want to use?", "Sorting Type",
         JOptionPane.QUESTION_MESSAGE, null, sortChoices, sortChoices[0]).toString();
-
-    // random start or reverse start?
-    String startState = JOptionPane.showInputDialog(null, "Which start state do you want to use?", "Start State",
-        JOptionPane.QUESTION_MESSAGE, null, startStates, startStates[0]).toString();
-
-    // if user wants to sort in reverse order
-    if (startState.equals("Reverse")) {
-      table.reverseOrder();
-    }
 
     window.add(table);
 
@@ -56,9 +58,9 @@ public class SortDriver {
     window.setVisible(true);
 
     if (sortType.equals(sortChoices[0])) { // user selects MSD sort
-      MSDSort(table.getPieces());
+      table.pieces = MSDSort(table.getPieces(), maxNumLength(table.getPieces()) - 1);
     } else { // user selects LSD sort
-      LSDSort(table.getPieces());
+      table.pieces = LSDSort(table.getPieces());
     }
 
     // lets user know sorting has finished
@@ -66,6 +68,25 @@ public class SortDriver {
         JOptionPane.INFORMATION_MESSAGE);
 
     System.exit(0); // quits the program
+  }
+
+  public static Piece[] loadFromFile(File file, int screenWidth) throws FileNotFoundException {
+    Scanner scanner = new Scanner(file);
+    ArrayList<Integer> temp = new ArrayList<Integer>();
+
+    while (scanner.hasNext()) {
+      temp.add(scanner.nextInt());
+    }
+
+    Piece[] pieces = new Piece[temp.size()];
+
+    for (int i = 0; i < temp.size(); i++) {
+      pieces[i] = new Piece(temp.size(), temp.get(i), screenWidth);
+    }
+
+    scanner.close();
+
+    return pieces;
   }
 
   public static void printBuckets(ArrayList<Piece>[] buckets) {
@@ -87,11 +108,7 @@ public class SortDriver {
     System.out.println();
   }
 
-  public static Piece[] MSDSort(Piece[] pieces) {
-    return MSDSortHelper(pieces, maxNumLength(pieces) - 1);
-  }
-
-  private static Piece[] MSDSortHelper(Piece[] pieces, int digitPos) {
+  public static Piece[] MSDSort(Piece[] pieces, int digitPos) {
     if (pieces.length <= 1 || digitPos < 0) {
       return pieces;
     }
@@ -109,8 +126,6 @@ public class SortDriver {
       buckets[getDigitAt(piece, digitPos)].add(piece);
     }
 
-    // printBuckets(buckets);
-
     // TODO Add showing the numbers going back to the original places but sorted
 
     Piece[] sorted = new Piece[0];
@@ -122,7 +137,7 @@ public class SortDriver {
         temp[i] = bucket.get(i);
       }
 
-      Piece[] bucketSortedResult = MSDSortHelper(temp, digitPos - 1);
+      Piece[] bucketSortedResult = MSDSort(temp, digitPos - 1);
 
       if (bucketSortedResult.length > 0) {
         sorted = combineArrays(sorted, bucketSortedResult);
@@ -146,7 +161,7 @@ public class SortDriver {
     return combined;
   }
 
-  public static void LSDSort(Piece[] pieces) {
+  public static Piece[] LSDSort(Piece[] pieces, int digitPos) {
 
   }
 

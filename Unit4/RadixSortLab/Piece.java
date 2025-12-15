@@ -11,10 +11,10 @@ public class Piece implements Comparable<Piece> {
 
     private int yPos = -750;
 
-    public Piece(int numOfPieces, int screenWidth) {
+    public Piece(int numOfPieces, int number, int screenWidth) {
         color = Color.GREEN;
         x = 0;
-        number = 1;
+        this.number = number;
         width = screenWidth/numOfPieces;
         moving = false;
         this.numOfPieces = numOfPieces;

@@ -14,7 +14,7 @@ public class RandomNumber {
     public void draw(Graphics graphics) { //draws random numbers to stream down the screen
         graphics.setColor(Color.CYAN);
         graphics.setFont(new Font("Arial", Font.BOLD, 20));
-        graphics.drawString(Integer.toString((int)(Math.random() * 10000)), y, -x);
+        graphics.drawString(Integer.toString((int)(Math.random() * 1000000)), y, -x);
     }
 
     //GETTERS AND SETTERS
