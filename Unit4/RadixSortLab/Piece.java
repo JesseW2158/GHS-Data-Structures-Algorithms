@@ -3,11 +3,11 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 public class Piece implements Comparable<Piece> {
-    private Color color;
-    private int x;
-    private int number, width;
-    private int numOfPieces;
-    private boolean moving;
+    public Color color;
+    public int x;
+    public int number, width;
+    public int numOfPieces;
+    public boolean moving;
 
     private int yPos = -750;
 
@@ -49,71 +49,6 @@ public class Piece implements Comparable<Piece> {
 
     @Override
     public int compareTo(Piece piece) {
-        return number - piece.getNumber();
+        return number - piece.number;
     }
-
-    //#region Getters & Setters & toString
-    
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getNumOfPieces() {
-        return numOfPieces;
-    }
-
-    public void setNumOfPieces(int numOfPieces) {
-        this.numOfPieces = numOfPieces;
-    }
-
-    public boolean isMoving() {
-        return moving;
-    }
-
-    public void setMoving(boolean moving) {
-        this.moving = moving;
-    }
-
-    public int getyPos() {
-        return yPos;
-    }
-
-    public void setyPos(int yPos) {
-        this.yPos = yPos;
-    }
-
-    @Override
-    public String toString() {
-        return "" + this.number;
-    }
-
-    //#endregion
 }

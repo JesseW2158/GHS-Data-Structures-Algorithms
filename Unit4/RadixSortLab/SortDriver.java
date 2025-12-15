@@ -1,6 +1,4 @@
-import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -15,115 +13,142 @@ public class SortDriver {
   static int timesMutated = 0;
   static int delayInMillis;
 
-  // public static void main(String[] args) throws InterruptedException {
-  // window = new JFrame("Escaping the Matrix"); // creating JFrame window
+  static final int BASE = 10;
 
-  // window.setSize(800, 650);
-  // window.setResizable(false);
-  // window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // closes the JFrame
-  // window if they click the red X
+  // TODO Add way to input path to file
+  public static void main(String[] args) throws InterruptedException {
+    window = new JFrame("Escaping the Matrix"); // creating JFrame window
 
-  // // Asks how many milliseconds do you want between each comparison?
-  // delayInMillis = Integer
-  // .parseInt(JOptionPane.showInputDialog(null, "How many milliseconds do you
-  // want between each comparison?"));
+    window.setSize(800, 650);
+    window.setResizable(false);
+    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // closes the JFrame window if they click the red X
 
-  // // asks for the number of pieces you want to sort?
-  // int pieces = Integer
-  // .parseInt(JOptionPane.showInputDialog(null, "How many pieces do you want to
-  // sort? (Min: 3, Max: 50)"));
+    // Asks how many milliseconds do you want between each comparison?
+    delayInMillis = Integer
+        .parseInt(JOptionPane.showInputDialog(null, "How many milliseconds do you want between each comparison?"));
 
-  // table = new Table(pieces, window.getWidth(), delayInMillis);
+    // asks for the number of pieces you want to sort?
+    int pieces = Integer
+        .parseInt(JOptionPane.showInputDialog(null, "How many pieces do you want to sort? (Min: 3, Max: 50)"));
 
-  // // which sorting algorithm do you want to use?
-  // String sortType = JOptionPane.showInputDialog(null, "Which sort do you want
-  // to use?", "Sorting Type",
-  // JOptionPane.QUESTION_MESSAGE, null, sortChoices, sortChoices[0]).toString();
+    table = new Table(pieces, window.getWidth(), delayInMillis);
 
-  // // random start or reverse start?
-  // String startState = JOptionPane.showInputDialog(null, "Which start state do
-  // you want to use?", "Start State",
-  // JOptionPane.QUESTION_MESSAGE, null, startStates, startStates[0]).toString();
+    // which sorting algorithm do you want to use?
+    String sortType = JOptionPane.showInputDialog(null, "Which sort do you want to use?", "Sorting Type",
+        JOptionPane.QUESTION_MESSAGE, null, sortChoices, sortChoices[0]).toString();
 
-  // // if user wants to sort in reverse order
-  // if (startState.equals("Reverse")) {
-  // table.reverseOrder();
-  // }
+    // random start or reverse start?
+    String startState = JOptionPane.showInputDialog(null, "Which start state do you want to use?", "Start State",
+        JOptionPane.QUESTION_MESSAGE, null, startStates, startStates[0]).toString();
 
-  // window.add(table);
+    // if user wants to sort in reverse order
+    if (startState.equals("Reverse")) {
+      table.reverseOrder();
+    }
 
-  // new Thread(() -> {
-  // while (true) {
-  // table.repaint();
-  // }
-  // }).start();
+    window.add(table);
 
-  // window.repaint();
-  // window.setVisible(true);
+    new Thread(() -> {
+      while (true) {
+        table.repaint();
+      }
+    }).start();
 
-  // if (sortType.equals(sortChoices[0])) { // user selects MSD sort
-  // MSDSort(table.getPieces());
-  // } else { // user selects LSD sort
-  // LSDSort((table.getPieces()));
-  // }
+    window.repaint();
+    window.setVisible(true);
 
-  // // lets user know sorting has finished
-  // JOptionPane.showMessageDialog(null, "Sorting has finished.", sortType,
-  // JOptionPane.INFORMATION_MESSAGE);
-  // JOptionPane.showMessageDialog(null, "Accessors: " + timesAccessed +
-  // "\nMutators: " + timesMutated,
-  // "Accesses and Mutates", JOptionPane.INFORMATION_MESSAGE);
+    if (sortType.equals(sortChoices[0])) { // user selects MSD sort
+      MSDSort(table.getPieces());
+    } else { // user selects LSD sort
+      LSDSort((table.getPieces()));
+    }
 
-  // System.exit(0); // quits the program
-  // }
+    // lets user know sorting has finished
+    JOptionPane.showMessageDialog(null, "Sorting has finished.", sortType,
+        JOptionPane.INFORMATION_MESSAGE);
+    JOptionPane.showMessageDialog(null, "Accessors: " + timesAccessed +
+        "\nMutators: " + timesMutated,
+        "Accesses and Mutates", JOptionPane.INFORMATION_MESSAGE);
 
-  public static void main(String[] args) {
-    Table table = new Table(10, 1600, 0);
-    MSDSort(table.getPieces());
+    System.exit(0); // quits the program
   }
 
-  public static void MSDSort(Piece[] pieces) {
-    if(pieces.length <= 1) {
-      return;
+  public static void printBuckets(ArrayList<Piece>[] buckets) {
+    for (ArrayList<Piece> bucket : buckets) {
+      System.out.print("[ ");
+      for (Piece piece : bucket) {
+        System.out.print(piece.number + " ");
+      }
+      System.out.println("]");
     }
+    System.out.println();
+  }
 
-    ArrayList<ArrayList<Piece>> buckets = new ArrayList<ArrayList<Piece>>(10);
-
-    for (int i = 0; i < 10; i++) {
-      buckets.add(new ArrayList<Piece>());
-    }
-
-    for(Piece piece : pieces) {
-      System.out.print(piece.getNumber() + " ");
+  public static void printTable(Table table) {
+    for (Piece piece : table.pieces) {
+      System.out.print(piece.number + " ");
     }
 
     System.out.println();
+  }
 
-    int length = maxNumLength(pieces);
+  public static Piece[] MSDSort(Piece[] pieces) {
+    return MSDSortHelper(pieces, maxNumLength(pieces) - 1);
+  }
+
+  private static Piece[] MSDSortHelper(Piece[] pieces, int digitPos) {
+    if (pieces.length <= 1 || digitPos < 0) {
+      return pieces;
+    }
+
+    int[] cumulative = new int[BASE];
+
+    @SuppressWarnings("unchecked")
+    ArrayList<Piece>[] buckets = new ArrayList[10];
+
+    for (int i = 0; i < BASE; i++) {
+      buckets[i] = new ArrayList<Piece>();
+    }
 
     for (Piece piece : pieces) {
-      buckets.get(getDigitAt(piece, length - 1)).add(piece);
+      buckets[getDigitAt(piece, digitPos)].add(piece);
     }
 
-    for(ArrayList<Piece> list : buckets) {
-      System.out.print("[");
+    // printBuckets(buckets);
 
-      for(Piece piece : list) {
-        System.out.print(piece + ", ");
-      }
-      
-      System.out.println("] ");
-    }
+    // TODO Add showing the numbers going back to the original places but sorted
 
-    for(ArrayList<Piece> list : buckets) {
-      Piece[] temp = new Piece[list.size()];
+    Piece[] sorted = new Piece[0];
 
-      for(int i = 0; i < list.size(); i++) {
-        temp[i] = list.get(i);
+    for (ArrayList<Piece> bucket : buckets) {
+      Piece[] temp = new Piece[bucket.size()];
+
+      for (int i = 0; i < bucket.size(); i++) {
+        temp[i] = bucket.get(i);
       }
 
-      MSDSort(temp);
+      Piece[] bucketSortedResult = MSDSortHelper(temp, digitPos - 1);
+
+      if (bucketSortedResult.length > 0) {
+        sorted = combineArrays(sorted, bucketSortedResult);
+      }
     }
+
+    return sorted;
+  }
+
+  public static Piece[] combineArrays(Piece[] original, Piece[] addition) {
+    Piece[] combined = new Piece[original.length + addition.length];
+
+    for (int i = 0; i < original.length; i++) {
+      combined[i] = original[i];
+    }
+
+    for (int i = 0; i < addition.length; i++) {
+      combined[original.length + i] = addition[i];
+    }
+
+    return combined;
   }
 
   public static void LSDSort(Piece[] pieces) {
@@ -131,67 +156,74 @@ public class SortDriver {
   }
 
   private static int getDigitAt(Piece piece, int digitPos) {
-    String temp = Integer.toString(piece.getNumber());
+    int digit = piece.number;
 
-    if (digitPos > temp.length() - 1) {
-      return 0;
+    for (int i = 0; i < digitPos; i++) {
+      digit /= BASE;
     }
 
-    return temp.charAt(0) - '0';
+    String temp = digit + "";
+
+    return temp.charAt(temp.length() - 1) - '0';
   }
 
   private static int maxNumLength(Piece[] pieces) {
     int max = 0;
 
     for (Piece piece : pieces) {
-      max = (piece.getNumber() > max) ? piece.getNumber() : max;
+      max = (piece.number > max) ? piece.number : max;
     }
 
     return ("" + max).length();
   }
-
-  public static void bubbleSort(Piece[] pieces) throws InterruptedException {
-    boolean listSorted = false;
-    int scans = 0;
-
-    while (!listSorted) {
-      listSorted = true; // sets variable as true until a mistake is found
-
-      for (int i = 0; i < pieces.length - scans - 1; i++) { // sets the two objects we are comparing to different colors
-        pieces[i].setColor(Color.BLUE); // object being compared
-        pieces[i + 1].setColor(Color.RED); // other object being compared
-
-        window.repaint();
-        Thread.sleep(delayInMillis);
-
-        timesAccessed++;
-        timesAccessed++;
-
-        if (pieces[i].getNumber() > pieces[i + 1].getNumber()) { // if the number after i is less then i, a swap occurs
-          listSorted = false;
-
-          // sets the pieces to moving so they scramble
-          pieces[i].setMoving(true);
-          pieces[i + 1].setMoving(true);
-
-          for (int j = 0; j < (int) (Math.random() * 10000); j++) {
-            window.repaint();
-            Thread.sleep(5);
-          }
-
-          movePieces(pieces, i, i + 1); // moves the pieces
-
-          // unscrambling the pieces
-          pieces[i].setMoving(false);
-          pieces[i + 1].setMoving(false);
-        }
-
-        // sets the colors back to green
-        pieces[i].setColor(Color.green);
-        pieces[i + 1].setColor(Color.green);
-      }
-      scans++;
-    }
-    window.repaint();
-  }
 }
+
+/**
+ * public static void bubbleSort(Piece[] pieces) throws InterruptedException {
+ * boolean listSorted = false;
+ * int scans = 0;
+ * 
+ * while (!listSorted) {
+ * listSorted = true; // sets variable as true until a mistake is found
+ * 
+ * for (int i = 0; i < pieces.length - scans - 1; i++) { // sets the two objects
+ * we are comparing to different colors
+ * pieces[i].color = (Color.BLUE); // object being compared
+ * pieces[i + 1].color = (Color.RED); // other object being compared
+ * 
+ * window.repaint();
+ * Thread.sleep(delayInMillis);
+ * 
+ * timesAccessed++;
+ * timesAccessed++;
+ * 
+ * if (pieces[i].number > pieces[i + 1].number) { // if the number after i is
+ * less then i, a swap occurs
+ * listSorted = false;
+ * 
+ * // sets the pieces to moving so they scramble
+ * pieces[i].setMoving(true);
+ * pieces[i + 1].setMoving(true);
+ * 
+ * for (int j = 0; j < (int) (Math.random() * 10000); j++) {
+ * window.repaint();
+ * Thread.sleep(5);
+ * }
+ * 
+ * movePieces(pieces, i, i + 1); // moves the pieces
+ * 
+ * // unscrambling the pieces
+ * pieces[i].moving = (false);
+ * pieces[i + 1].moving = (false);
+ * }
+ * 
+ * // sets the colors back to green
+ * pieces[i].color = Color.green;
+ * pieces[i + 1].color = Color.green;
+ * }
+ * scans++;
+ * }
+ * window.repaint();
+ * }
+ * }
+ */
