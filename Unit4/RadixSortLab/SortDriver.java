@@ -9,8 +9,6 @@ public class SortDriver {
 
   static JFrame window;
   static Table table;
-  static int timesAccessed = 0;
-  static int timesMutated = 0;
   static int delayInMillis;
 
   static final int BASE = 10;
@@ -60,15 +58,12 @@ public class SortDriver {
     if (sortType.equals(sortChoices[0])) { // user selects MSD sort
       MSDSort(table.getPieces());
     } else { // user selects LSD sort
-      LSDSort((table.getPieces()));
+      LSDSort(table.getPieces());
     }
 
     // lets user know sorting has finished
     JOptionPane.showMessageDialog(null, "Sorting has finished.", sortType,
         JOptionPane.INFORMATION_MESSAGE);
-    JOptionPane.showMessageDialog(null, "Accessors: " + timesAccessed +
-        "\nMutators: " + timesMutated,
-        "Accesses and Mutates", JOptionPane.INFORMATION_MESSAGE);
 
     System.exit(0); // quits the program
   }
