@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -12,16 +13,16 @@ public class SortDriver {
 
   static JFrame window;
   static Table table;
+  static Buckets buckets;
   static int delayInMillis;
 
   static final int BASE = 10;
 
-  // TODO Add way to input path to file
   public static void main(String[] args) throws InterruptedException, FileNotFoundException {
     window = new JFrame("Escaping the Matrix"); // creating JFrame window
 
-    window.setSize(800, 650);
-    window.setResizable(true);
+    window.setSize(800, 600);
+    window.setResizable(false);
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // closes the JFrame window if they click the X
 
     // Asks how many milliseconds do you want between each comparison?
@@ -46,13 +47,13 @@ public class SortDriver {
     String sortType = JOptionPane.showInputDialog(null, "Which sort do you want to use?", "Sorting Type",
         JOptionPane.QUESTION_MESSAGE, null, sortChoices, sortChoices[0]).toString();
 
-    window.add(table);
+      window.add(table);
 
-    new Thread(() -> {
-      while (true) {
-        table.repaint();
-      }
-    }).start();
+      new Thread(() -> {
+        while (true) {
+          table.repaint();
+        }
+      }).start();
 
     window.repaint();
     window.setVisible(true);
@@ -89,34 +90,13 @@ public class SortDriver {
     return pieces;
   }
 
-  public static void printBuckets(ArrayList<Piece>[] buckets) {
-    for (ArrayList<Piece> bucket : buckets) {
-      System.out.print("[ ");
-      for (Piece piece : bucket) {
-        System.out.print(piece.number + " ");
-      }
-      System.out.println("]");
-    }
-    System.out.println();
-  }
-
-  public static void printTable(Table table) {
-    for (Piece piece : table.pieces) {
-      System.out.print(piece.number + " ");
-    }
-
-    System.out.println();
-  }
-
   public static Piece[] MSDSort(Piece[] pieces, int digitPos) {
     if (pieces.length <= 1 || digitPos < 0) {
       return pieces;
     }
 
-    int[] cumulative = new int[BASE];
-
     @SuppressWarnings("unchecked")
-    ArrayList<Piece>[] buckets = new ArrayList[10];
+    ArrayList<Piece>[] buckets = new ArrayList[BASE];
 
     for (int i = 0; i < BASE; i++) {
       buckets[i] = new ArrayList<Piece>();
@@ -126,17 +106,10 @@ public class SortDriver {
       buckets[getDigitAt(piece, digitPos)].add(piece);
     }
 
-    // TODO Add showing the numbers going back to the original places but sorted
-
     Piece[] sorted = new Piece[0];
 
     for (ArrayList<Piece> bucket : buckets) {
-      Piece[] temp = new Piece[bucket.size()];
-
-      for (int i = 0; i < bucket.size(); i++) {
-        temp[i] = bucket.get(i);
-      }
-
+      Piece[] temp = bucket.toArray(new Piece[bucket.size()]);
       Piece[] bucketSortedResult = MSDSort(temp, digitPos - 1);
 
       if (bucketSortedResult.length > 0) {
@@ -161,14 +134,30 @@ public class SortDriver {
     return combined;
   }
 
-  public static Piece[] LSDSort(Piece[] pieces, int maxLength) {
+  public static Piece[] LSDSort(Piece[] pieces, int maxLength) throws InterruptedException {
     for (int i = 0; i < maxLength; i++) {
       int[] counts = new int[BASE];
       int[] cumulative = new int[BASE];
+      Buckets buckets = new Buckets(counts);
+
+      window.add(buckets);
+
+      boolean keepRunning = true;
+
+      new Thread(() -> {
+        while (keepRunning) {
+          buckets.repaint();
+        }
+      }).start();
 
       for (Piece piece : pieces) {
+        piece.color = Color.WHITE;
         counts[getDigitAt(piece, i)]++;
+        Thread.sleep(delayInMillis);
+        piece.color = Color.GREEN;
       }
+
+      System.out.println();
 
       cumulative[0] = counts[0];
 
@@ -176,30 +165,14 @@ public class SortDriver {
         cumulative[j] = cumulative[j - 1] + counts[j];
       }
 
-      System.out.print("[ ");
-      for (Piece piece : pieces) {
-        System.out.print(piece.number + " ");
-      }
-      System.out.println("]");
-
       Piece[] temp = new Piece[pieces.length];
 
       for (int j = pieces.length - 1; j >= 0; j--) {
-        System.out.println(pieces[j].number);
-        System.out.println(getDigitAt(pieces[j], i));
-        System.out.println(cumulative[getDigitAt(pieces[j], i)] - 1);
-        System.out.println();
         temp[cumulative[getDigitAt(pieces[j], i)] - 1] = pieces[j];
         cumulative[getDigitAt(pieces[j], i)]--;
       }
 
       pieces = temp;
-
-      System.out.print("[ ");
-      for (Piece piece : temp) {
-        System.out.print(piece.number + " ");
-      }
-      System.out.println("]");
     }
 
     return pieces;
